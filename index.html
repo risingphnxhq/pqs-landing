@@ -36,9 +36,6 @@
       --blue-border: rgba(68,115,255,0.24);
 
       --shadow: 0 20px 60px rgba(0,0,0,0.35);
-      --radius-lg: 28px;
-      --radius-md: 20px;
-      --radius-sm: 14px;
     }
 
     *{
@@ -231,16 +228,14 @@
 
     .meta-box,
     .signal-card,
-    .intel-card,
-    .field-card{
+    .intel-card{
       border:1px solid var(--line);
       background:rgba(255,255,255,0.018);
       padding:18px;
     }
 
     .signal-card h3,
-    .intel-card h3,
-    .field-card h3{
+    .intel-card h3{
       font-family:"Cinzel", serif;
       font-size:15px;
       letter-spacing:0.05em;
@@ -251,8 +246,7 @@
     }
 
     .signal-card p,
-    .intel-card p,
-    .field-card p{
+    .intel-card p{
       color:var(--muted);
       line-height:1.65;
       font-size:14px;
@@ -432,20 +426,6 @@
       color:var(--muted);
       line-height:1.72;
       font-size:15px;
-    }
-
-    .priority-list{
-      padding-left:20px;
-      color:var(--muted);
-      line-height:1.75;
-    }
-
-    .priority-list li{
-      margin-bottom:10px;
-    }
-
-    .priority-list li:last-child{
-      margin-bottom:0;
     }
 
     .meta-row{
@@ -723,7 +703,7 @@
 </head>
 <body>
   <main class="page">
-    <img src="phoenix-os-logo.png" alt="Phoenix OS Seal" class="seal" />
+    <img src="logo.png" alt="Phoenix OS Seal" class="seal" />
 
     <div class="system-label">
       <div class="system-kicker">Phoenix Business System</div>
@@ -953,28 +933,34 @@
 
           <section class="section">
             <div class="section-label">Submitted Profile</div>
+
             <div class="grid-2">
               <div class="meta-box">
                 <div class="meta-row">
                   <span class="meta-key">Business</span>
                   <span id="summary-business">—</span>
                 </div>
+
                 <div class="meta-row">
                   <span class="meta-key">Entity Type</span>
                   <span id="summary-entity">—</span>
                 </div>
+
                 <div class="meta-row">
                   <span class="meta-key">Jurisdiction</span>
                   <span id="summary-jurisdiction">—</span>
                 </div>
+
                 <div class="meta-row">
                   <span class="meta-key">Revenue Band</span>
                   <span id="summary-revenue">—</span>
                 </div>
+
                 <div class="meta-row">
                   <span class="meta-key">Team Structure</span>
                   <span id="summary-team">—</span>
                 </div>
+
                 <div class="meta-row">
                   <span class="meta-key">Objective</span>
                   <span id="summary-objective">—</span>
@@ -1006,6 +992,7 @@
             <p class="section-copy" id="next-stage-copy">
               Your next progression option will appear here after scoring.
             </p>
+
             <div style="margin-top:16px;">
               <a class="cta" id="continue-link" href="https://pbrs.risingphoenixhq.com/index.html">
                 Continue to PBRS →
@@ -1042,8 +1029,6 @@
           <span>PSEQ</span>
           <span class="arrow">→</span>
           <span>PNC</span>
-          <span class="arrow">→</span>
-          <span>PBIP</span>
         </div>
       </div>
 
@@ -1356,13 +1341,14 @@
       text("pqs-score", result.score);
       setBandPill("score-band-pill", result.bandLabel, result.bandTone);
       text("score-band-text", result.interpretation);
-
       text("evaluation-statement", result.interpretation);
 
       setPill("status-pill", result.statusLabel, result.statusTone);
       text("status-text", "Your current score indicates that your business is in a " + result.bandLabel.toLowerCase() + " operating condition and requires the correct next movement.");
+
       setPill("constraint-pill", result.constraintLabel, result.constraintTone);
       text("constraint-text", result.constraintText);
+
       setPill("next-pill", "PQS → " + result.nextPath, "state-blue");
       text("next-text", result.nextCopy);
 
@@ -1371,6 +1357,7 @@
       text("nace-state-line", result.stateLine);
 
       document.getElementById("next-stage-section").classList.remove("hidden");
+
       text("next-stage-copy", result.nextCopy);
 
       const continueLink = document.getElementById("continue-link");
