@@ -151,23 +151,7 @@
       line-height:1.5;
       color:var(--muted);
       max-width:860px;
-      margin:0 auto 18px;
-    }
-
-    .release-band{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      margin-top:2px;
-      padding:10px 18px;
-      border:1px solid rgba(201,162,39,0.28);
-      background:rgba(201,162,39,0.08);
-      font-family:"Cinzel", serif;
-      font-size:14px;
-      letter-spacing:0.12em;
-      text-transform:uppercase;
-      color:var(--gold);
+      margin:0 auto 20px;
     }
 
     .workspace{
@@ -444,19 +428,6 @@
       font-size:15px;
     }
 
-    .quote-block{
-      border-left:8px solid rgba(255,255,255,0.18);
-      padding:8px 0 8px 18px;
-      margin-top:6px;
-      color:var(--text);
-      font-size:18px;
-      line-height:1.6;
-    }
-
-    .quote-block strong{
-      font-weight:500;
-    }
-
     .meta-row{
       display:flex;
       justify-content:space-between;
@@ -505,7 +476,7 @@
       font-size:14px;
       letter-spacing:0.12em;
       background:rgba(255,255,255,0.01);
-      transition:background-color .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
+      transition:background-color .18s ease, color .18s ease, border-color .18s ease, transform .18s ease, opacity .18s ease;
       cursor:pointer;
       width:100%;
       text-align:center;
@@ -518,19 +489,28 @@
       transform:translateY(-1px);
     }
 
+    .cta:disabled{
+      opacity:0.72;
+      cursor:progress;
+      transform:none;
+    }
+
     .cta-note{
       font-size:12px;
       line-height:1.6;
       color:#8b929b;
     }
 
-    .pricing-note{
-      font-size:13px;
-      line-height:1.7;
-      color:var(--muted);
+    .checkout-note{
       border-top:1px solid var(--line);
-      padding-top:14px;
-      margin-top:4px;
+      padding-top:16px;
+      margin-top:6px;
+    }
+
+    .checkout-note p{
+      font-size:13px;
+      line-height:1.75;
+      color:var(--muted);
     }
 
     .nace-rail{
@@ -711,7 +691,7 @@
 
       .subline{
         font-size:15px;
-        margin-bottom:16px;
+        margin-bottom:18px;
       }
 
       .main-panel{
@@ -736,10 +716,6 @@
         font-size:12px;
         gap:8px;
       }
-
-      .quote-block{
-        font-size:16px;
-      }
     }
   </style>
 </head>
@@ -757,7 +733,6 @@
         <p class="subline">
           Fast-entry evaluation layer for rapid operational signal capture, early readiness estimation, and controlled progression inside the Phoenix Business System.
         </p>
-        <div class="release-band">$19 · Private Release</div>
       </section>
 
       <section class="workspace">
@@ -908,10 +883,12 @@
                     <span class="dot symbol-green">🟢</span>
                     <span><strong>Structured (75–100)</strong> — Business is showing stronger operational stability and scale readiness.</span>
                   </div>
+
                   <div class="score-line">
                     <span class="dot symbol-amber">🟡</span>
                     <span><strong>Conditional (50–74)</strong> — Business has movement, but gaps are limiting consistency and controlled growth.</span>
                   </div>
+
                   <div class="score-line">
                     <span class="dot symbol-red">🔴</span>
                     <span><strong>Constrained (0–49)</strong> — Structural weakness is actively preventing dependable growth.</span>
@@ -975,13 +952,6 @@
           </section>
 
           <section class="section">
-            <div class="section-label">Diagnostic Clarity Doctrine</div>
-            <div class="quote-block">
-              <strong>“All build paths begin with diagnostic clarity.”</strong>
-            </div>
-          </section>
-
-          <section class="section">
             <div class="section-label">Submitted Profile</div>
 
             <div class="grid-2">
@@ -1033,28 +1003,12 @@
                   QuickScore stores your intake, generates a fast readiness estimate, and preserves continuity for deeper progression inside PBS.
                 </div>
 
-                <div class="pricing-note" id="pricing-note">
-                  QuickScore is released as a <strong>$19 private-access readiness check</strong>. After signal generation, you will continue into secure Stripe checkout to unlock the continuity output page.
+                <div class="checkout-note">
+                  <p id="stripe-note">
+                    QuickScore is released as a $19 private-access readiness check. After signal generation, you will continue into secure Stripe checkout to unlock the continuity output page.
+                  </p>
                 </div>
               </div>
-            </div>
-          </section>
-
-          <section class="section hidden" id="next-stage-section">
-            <div class="section-label">Progression Layer</div>
-            <h2 class="section-title">Controlled Continuity</h2>
-            <p class="section-copy" id="next-stage-copy">
-              Your next progression option will appear here after scoring.
-            </p>
-
-            <div style="margin-top:16px;">
-              <a class="cta" id="continue-link" href="https://buy.stripe.com/eVg7sL7Uc2Mcdeu189fYY0d">
-                Continue to Secure Checkout →
-              </a>
-            </div>
-
-            <div class="pricing-note" style="margin-top:14px;">
-              Checkout will process the <strong>Phoenix QuickScore — Business Readiness Check ($19)</strong>. After successful payment, Stripe returns to <strong>https://pqs.risingphoenixhq.com/output.html</strong> so the saved signal can be rendered.
             </div>
           </section>
         </div>
@@ -1100,9 +1054,8 @@
   </main>
 
   <script>
-    const PQS_STRIPE_URL = "https://buy.stripe.com/eVg7sL7Uc2Mcdeu189fYY0d";
-    const PQS_PRICE_LABEL = "$19 · Private Release";
-    const PQS_PRODUCT_NAME = "Phoenix QuickScore — Business Readiness Check";
+    const PQS_STRIPE_URL = "https://buy.stripe.com/eVq7sL7Uc2Mcdeu189fYY0d";
+    const PQS_OUTPUT_URL = "https://pqs.risingphoenixhq.com/output.html";
 
     function clean(value) {
       return String(value || "").trim();
@@ -1241,9 +1194,9 @@
       let statusTone = "state-amber";
       let interpretation = "Your current signal indicates meaningful potential, but structural gaps are still limiting consistency and dependable growth.";
       let nextPath = "PBRS";
-      let nextHref = PQS_STRIPE_URL;
-      let nextCopy = "Your preliminary signal has been generated. Secure checkout is the next step so the continuity output can unlock and progression can move into Phoenix Business Readiness Snapshot.";
-      let recommendedPath = "Generate your signal, then continue through secure checkout to unlock the output page and preserve continuity into PBRS.";
+      let nextHref = "https://pbrs.risingphoenixhq.com/index.html";
+      let nextCopy = "The recommended next move is Phoenix Business Readiness Snapshot, where this early signal is converted into deeper diagnosis and structured readiness interpretation.";
+      let recommendedPath = "Complete secure checkout to unlock your PQS output and continue into PBRS for deeper diagnosis, better precision, and a stronger correction path.";
       let naceGuidance = "NACE Guidance: QuickScore has identified viable signal, but more precision is required before deeper build decisions should be made.";
       let stateLine = "QuickScore is a first-read layer. Stronger certainty is achieved by moving into PBRS, where the operating condition is evaluated at a deeper level.";
 
@@ -1254,7 +1207,7 @@
         statusLabel = "Structured";
         statusTone = "state-green";
         interpretation = "Your current signal indicates a stronger operating condition than most entry-stage operators. The business appears more structurally intact, though deeper diagnostic work is still recommended before advancing into heavier build decisions.";
-        recommendedPath = "You are in a stronger position. Continue through secure checkout to unlock your output and advance into PBRS for confirmation-grade diagnosis.";
+        recommendedPath = "Complete secure checkout to unlock your PQS output, then continue into PBRS to confirm condition, expose remaining weaknesses, and establish the correct next sequence.";
         naceGuidance = "NACE Guidance: This is a stronger condition, but not a final one. QuickScore is signaling that deeper diagnosis should now be used to confirm what is actually ready.";
       }
 
@@ -1265,7 +1218,7 @@
         statusLabel = "Constrained";
         statusTone = "state-red";
         interpretation = "Your current signal indicates material structural weakness. At this stage, the business needs correction and grounded clarity before stronger scale pressure should be applied.";
-        recommendedPath = "Proceed through secure checkout so the output page unlocks and continuity moves into PBRS for a deeper correction-grade diagnosis.";
+        recommendedPath = "QuickScore indicates structural weakness. Complete secure checkout to unlock your output and move into PBRS for deeper correction-grade diagnosis.";
         naceGuidance = "NACE Guidance: The system is signaling that force should not be increased without clearer structure. Move into PBRS so the weakness can be defined properly.";
       }
 
@@ -1319,24 +1272,21 @@
         pqs_band_label: result.bandLabel,
         pqs_primary_constraint: result.constraint,
         pqs_interpretation: result.interpretation,
-        pqs_checkout_url: PQS_STRIPE_URL,
-        pqs_product_name: PQS_PRODUCT_NAME,
-        pqs_price_label: PQS_PRICE_LABEL,
         current_stage: "pqs",
         recommended_next_stage: "pbrs",
         evaluation_entry: "pqs_completed",
-        pbs_continuity_confirmed: true
+        pbs_continuity_confirmed: true,
+        stripe_checkout_url: PQS_STRIPE_URL,
+        stripe_return_url: PQS_OUTPUT_URL
       };
     }
 
     const existingPqs = JSON.parse(localStorage.getItem("pqs_intake") || "{}");
-    const existingPqsFull = JSON.parse(localStorage.getItem("pqs_full") || "{}");
     const existingPbbFull = JSON.parse(localStorage.getItem("pbb_full") || "{}");
     const existingPbrs = JSON.parse(localStorage.getItem("pbrs_intake") || "{}");
 
     const seed = {
       ...existingPqs,
-      ...existingPqsFull,
       ...existingPbbFull,
       ...existingPbrs
     };
@@ -1371,6 +1321,8 @@
     });
 
     document.getElementById("submit-btn").addEventListener("click", function() {
+      const submitBtn = document.getElementById("submit-btn");
+
       const intake = {
         full_name: clean(document.getElementById("full_name").value),
         email: clean(document.getElementById("email").value),
@@ -1396,6 +1348,8 @@
         text("pqs-score", "--");
         setPill("status-pill", "Incomplete", "state-red");
         text("status-text", "Minimum intake requirements have not yet been met.");
+        setPill("constraint-pill", "Undetermined", "state-blue");
+        text("constraint-text", "The dominant signal will appear after intake completion.");
         return;
       }
 
@@ -1409,39 +1363,30 @@
       setBandPill("score-band-pill", result.bandLabel, result.bandTone);
       text("score-band-text", result.interpretation);
       text("evaluation-statement", result.interpretation);
-
       setPill("status-pill", result.statusLabel, result.statusTone);
       text("status-text", "Your current score indicates that your business is in a " + result.bandLabel.toLowerCase() + " operating condition and requires the correct next movement.");
-
       setPill("constraint-pill", result.constraintLabel, result.constraintTone);
       text("constraint-text", result.constraintText);
-
-      setPill("next-pill", "PQS → PBRS", "state-blue");
-      text("next-text", result.nextCopy);
-
+      setPill("next-pill", "PQS → " + result.nextPath, "state-blue");
+      text("next-text", "Secure checkout will unlock the saved continuity output and move progression into " + result.nextPath + ".");
       text("recommended-path", result.recommendedPath);
       text("nace-guidance", result.naceGuidance);
       text("nace-state-line", result.stateLine);
 
-      document.getElementById("next-stage-section").classList.remove("hidden");
-      text("next-stage-copy", result.nextCopy);
-
-      const continueLink = document.getElementById("continue-link");
-      continueLink.href = result.nextHref;
-      continueLink.textContent = "Continue to Secure Checkout →";
-
       const noteText = result.band === "structured"
-        ? "QuickScore indicates stronger initial readiness. Complete secure checkout to unlock your output and carry continuity into PBRS."
+        ? "QuickScore indicates stronger initial readiness. Complete secure checkout to unlock your output, then continue into PBRS so this strength can be confirmed with deeper precision."
         : result.band === "constrained"
-          ? "QuickScore indicates structural weakness. Complete secure checkout to unlock your output and move into PBRS for deeper diagnosis."
-          : "QuickScore indicates movement with material gaps. Complete secure checkout to unlock your output and continue into PBRS.";
+          ? "QuickScore indicates structural weakness. Complete secure checkout to unlock your output and move into PBRS for deeper correction-grade diagnosis."
+          : "QuickScore indicates movement with material gaps. Complete secure checkout to unlock your output and continue into PBRS for deeper diagnosis and cleaner corrective direction.";
 
       text("cta-note", noteText);
 
-      window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: "smooth"
-      });
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Redirecting to Secure Checkout…";
+
+      setTimeout(function() {
+        window.location.href = PQS_STRIPE_URL;
+      }, 250);
     });
   </script>
 </body>
