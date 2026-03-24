@@ -1,190 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Phoenix QuickScore — Output</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PQS Output</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --bg:#050505;
-      --panel:#0d0f13;
-      --text:#f3f4f6;
-      --muted:#a8afb8;
-      --gold:#c9a227;
-      --line:#232831;
-      --green:#6fd18e;
-      --amber:#f0ca4d;
-      --red:#ef6b6b;
-    }
-
-    body{
-      margin:0;
-      font-family:"Inter", sans-serif;
-      background:linear-gradient(180deg,#070707,#030303);
-      color:var(--text);
-    }
-
-    .wrap{
-      width:min(1100px,92%);
-      margin:auto;
-      padding:100px 0 40px;
-    }
-
-    .hero{
-      text-align:center;
-      margin-bottom:40px;
-    }
-
-    .headline{
-      font-family:"Cinzel", serif;
-      font-size:40px;
-      letter-spacing:.05em;
-      text-transform:uppercase;
-    }
-
-    .sub{
-      color:var(--muted);
-      max-width:700px;
-      margin:10px auto 0;
-    }
-
-    .card{
-      border:1px solid var(--line);
-      padding:28px;
-      margin-bottom:20px;
-      background:rgba(255,255,255,0.02);
-    }
-
-    .score{
-      font-size:72px;
-      font-family:"Cinzel";
-    }
-
-    .pill{
-      display:inline-block;
-      padding:6px 12px;
-      border-radius:999px;
-      font-size:12px;
-      margin-top:10px;
-    }
-
-    .green{background:rgba(57,140,89,.15);color:#cdebd6;}
-    .amber{background:rgba(184,134,11,.15);color:#ead9a9;}
-    .red{background:rgba(170,72,72,.15);color:#efc0c0;}
-
-    .cta{
-      display:block;
-      text-align:center;
-      padding:16px;
-      border:1px solid var(--gold);
-      margin-top:20px;
-      text-decoration:none;
-      color:var(--text);
-      font-family:"Cinzel";
-      letter-spacing:.1em;
-    }
-
-    .cta:hover{
-      background:var(--gold);
-      color:#111;
-    }
-
-    .small{
-      font-size:14px;
-      color:var(--muted);
-      line-height:1.7;
-      margin-top:14px;
-    }
-
-    .divider{
-      height:1px;
-      background:var(--line);
-      margin:30px 0;
-    }
-  </style>
+<style>
+:root{
+  --bg:#050505;
+  --panel:#0d0f13;
+  --text:#f3f4f6;
+  --muted:#a8afb8;
+  --gold:#c9a227;
+  --line:#232831;
+}
+body{
+  margin:0;
+  font-family:"Inter",sans-serif;
+  background:linear-gradient(180deg,#070707,#030303);
+  color:var(--text);
+}
+.wrap{
+  width:min(1100px,92%);
+  margin:auto;
+  padding:100px 0 40px;
+}
+.logo{
+  position:absolute;
+  top:30px;
+  left:40px;
+  width:100px;
+}
+.hero{
+  text-align:center;
+}
+.headline{
+  font-family:"Cinzel";
+  font-size:40px;
+}
+.sub{
+  color:var(--muted);
+}
+.card{
+  border:1px solid var(--line);
+  padding:28px;
+  margin-top:20px;
+  background:rgba(255,255,255,0.02);
+}
+.score{
+  font-size:72px;
+  font-family:"Cinzel";
+}
+.callout{
+  border-left:2px solid var(--gold);
+  padding-left:16px;
+  margin-top:20px;
+  color:var(--muted);
+}
+.cta{
+  display:block;
+  margin-top:30px;
+  padding:16px;
+  border:1px solid var(--gold);
+  text-align:center;
+  text-decoration:none;
+  color:var(--text);
+  font-family:"Cinzel";
+}
+.cta:hover{
+  background:var(--gold);
+  color:#111;
+}
+</style>
 </head>
 
 <body>
 
+<img src="logo.png" class="logo"/>
+
 <div class="wrap">
 
-  <div class="hero">
-    <div class="headline">Phoenix QuickScore</div>
-    <div class="sub">
-      Rapid operational signal generated from your intake.
-    </div>
-  </div>
+<div class="hero">
+  <div class="headline">Phoenix QuickScore</div>
+  <div class="sub">Rapid operational signal generated from your intake.</div>
+</div>
 
-  <div class="card">
-    <div class="score" id="score">--</div>
-    <div id="band" class="pill">Awaiting Data</div>
+<div class="card">
+  <div class="score" id="score">--</div>
+  <p id="interpretation">Awaiting data</p>
+</div>
 
-    <p id="interpretation" class="small">
-      No data detected.
-    </p>
-  </div>
+<div class="card">
+  <h3>Primary Constraint</h3>
+  <p id="constraint">—</p>
+</div>
 
-  <div class="card">
-    <h3>Primary Constraint</h3>
-    <p id="constraint" class="small">—</p>
-  </div>
+<div class="card">
 
-  <div class="card">
-    <h3>System Guidance</h3>
+  <div class="callout">
+    <p>“All build paths begin with diagnostic clarity.”</p>
 
-    <p class="small">
-      This is not a complete diagnostic.
-      It is a fast signal designed to expose whether deeper structural issues likely exist.
+    <p style="margin-top:12px;">
+      This is not a complete diagnostic. It is a fast signal designed to expose whether deeper structural issues likely exist.
     </p>
 
-    <p class="small">
+    <p style="margin-top:10px;">
       If your business is showing Conditional or Constrained signals, full diagnostic analysis is strongly recommended before attempting to scale.
     </p>
   </div>
 
-  <div class="divider"></div>
+</div>
 
-  <a href="https://pbrs.risingphoenixhq.com/index.html" class="cta">
-    Continue to PBRS →
-  </a>
+<a href="https://pbrs.risingphoenixhq.com/index.html" class="cta">
+  Continue to PBRS →
+</a>
 
 </div>
 
 <script>
-  const data = JSON.parse(localStorage.getItem("pqs_full") || "{}");
+const data = JSON.parse(localStorage.getItem("pqs_full") || "{}");
 
-  if(!data.pqs_score){
-    document.getElementById("interpretation").textContent =
-      "No QuickScore data found. Please complete intake.";
-  } else {
-
-    document.getElementById("score").textContent = data.pqs_score;
-
-    let band = data.pqs_band;
-    let bandEl = document.getElementById("band");
-
-    if(band === "structured"){
-      bandEl.textContent = "Structured";
-      bandEl.className = "pill green";
-    }
-    else if(band === "conditional"){
-      bandEl.textContent = "Conditional";
-      bandEl.className = "pill amber";
-    }
-    else{
-      bandEl.textContent = "Constrained";
-      bandEl.className = "pill red";
-    }
-
-    document.getElementById("interpretation").textContent =
-      data.pqs_interpretation || "";
-
-    document.getElementById("constraint").textContent =
-      data.pqs_primary_constraint || "—";
-  }
+if(data.pqs_score){
+  document.getElementById("score").textContent = data.pqs_score;
+  document.getElementById("interpretation").textContent = data.pqs_interpretation;
+  document.getElementById("constraint").textContent = data.pqs_primary_constraint;
+}
 </script>
 
 </body>
