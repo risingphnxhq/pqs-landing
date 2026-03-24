@@ -1,133 +1,661 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>PQS Output</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phoenix QuickScore — Output</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<style>
-:root{
-  --bg:#050505;
-  --panel:#0d0f13;
-  --text:#f3f4f6;
-  --muted:#a8afb8;
-  --gold:#c9a227;
-  --line:#232831;
-}
-body{
-  margin:0;
-  font-family:"Inter",sans-serif;
-  background:linear-gradient(180deg,#070707,#030303);
-  color:var(--text);
-}
-.wrap{
-  width:min(1100px,92%);
-  margin:auto;
-  padding:100px 0 40px;
-}
-.logo{
-  position:absolute;
-  top:30px;
-  left:40px;
-  width:100px;
-}
-.hero{
-  text-align:center;
-}
-.headline{
-  font-family:"Cinzel";
-  font-size:40px;
-}
-.sub{
-  color:var(--muted);
-}
-.card{
-  border:1px solid var(--line);
-  padding:28px;
-  margin-top:20px;
-  background:rgba(255,255,255,0.02);
-}
-.score{
-  font-size:72px;
-  font-family:"Cinzel";
-}
-.callout{
-  border-left:2px solid var(--gold);
-  padding-left:16px;
-  margin-top:20px;
-  color:var(--muted);
-}
-.cta{
-  display:block;
-  margin-top:30px;
-  padding:16px;
-  border:1px solid var(--gold);
-  text-align:center;
-  text-decoration:none;
-  color:var(--text);
-  font-family:"Cinzel";
-}
-.cta:hover{
-  background:var(--gold);
-  color:#111;
-}
-</style>
+  <style>
+    :root{
+      --bg:#050505;
+      --panel:#0d0f13;
+      --panel-2:rgba(255,255,255,0.02);
+      --text:#f3f4f6;
+      --muted:#a8afb8;
+      --gold:#c9a227;
+      --line:#232831;
+      --green:#2ecc71;
+      --amber:#f1c40f;
+      --red:#e74c3c;
+      --blue:#3b82f6;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:"Inter",sans-serif;
+    }
+
+    .container{
+      max-width:1120px;
+      margin:auto;
+      padding:54px 20px 70px;
+    }
+
+    .top-kicker{
+      text-align:center;
+      font-size:12px;
+      letter-spacing:.28em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-bottom:18px;
+    }
+
+    h1,h2,h3,h4{
+      font-family:"Cinzel",serif;
+      letter-spacing:.05em;
+      margin:0;
+    }
+
+    h1{
+      text-align:center;
+      font-size:52px;
+      margin-bottom:14px;
+    }
+
+    .sub{
+      text-align:center;
+      color:var(--muted);
+      margin:0 auto 36px;
+      max-width:760px;
+      line-height:1.7;
+      font-size:18px;
+    }
+
+    .section{
+      border:1px solid var(--line);
+      padding:24px;
+      margin-bottom:20px;
+      background:var(--panel-2);
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:280px 1fr;
+      gap:20px;
+      align-items:stretch;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+    }
+
+    .grid-2-equal{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+    }
+
+    .score-box{
+      border:1px solid rgba(201,162,39,.32);
+      padding:22px;
+      background:rgba(255,255,255,0.015);
+      height:100%;
+    }
+
+    .score-label{
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-bottom:16px;
+    }
+
+    .score{
+      font-size:72px;
+      line-height:1;
+      font-family:"Cinzel",serif;
+      margin-bottom:14px;
+    }
+
+    .pill{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:16px;
+    }
+
+    .pill-green{ background:rgba(46,204,113,0.18); color:#d7ffe8; }
+    .pill-amber{ background:rgba(241,196,15,0.18); color:#fff4bf; }
+    .pill-red{ background:rgba(231,76,60,0.18); color:#ffd2cd; }
+    .pill-blue{ background:rgba(59,130,246,0.18); color:#d7e8ff; }
+    .pill-soft{ background:rgba(255,255,255,0.05); color:var(--text); }
+
+    .muted{
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    .meaning-box{
+      border:1px solid var(--line);
+      padding:22px;
+      background:rgba(255,255,255,0.015);
+      height:100%;
+    }
+
+    .meaning-box h2{
+      font-size:34px;
+      margin-bottom:14px;
+    }
+
+    .meaning-box p{
+      margin:0 0 16px;
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    .meaning-item{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      margin-bottom:14px;
+      line-height:1.7;
+    }
+
+    .dot{
+      width:15px;
+      height:15px;
+      border-radius:50%;
+      margin-top:5px;
+      flex:0 0 15px;
+    }
+
+    .dot-green{ background:var(--green); }
+    .dot-amber{ background:var(--amber); }
+    .dot-red{ background:var(--red); }
+
+    .notice-line{
+      border-left:3px solid var(--gold);
+      padding-left:14px;
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    .card{
+      border:1px solid var(--line);
+      padding:20px;
+      background:rgba(255,255,255,0.015);
+      height:100%;
+    }
+
+    .card h3{
+      font-size:18px;
+      margin-bottom:12px;
+    }
+
+    .card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .card .value{
+      font-size:20px;
+      color:var(--text);
+      margin-top:6px;
+      line-height:1.5;
+      font-weight:600;
+    }
+
+    .precision{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+    }
+
+    .doctrine{
+      border-left:4px solid rgba(255,255,255,0.25);
+      padding-left:14px;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .profile-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+    }
+
+    .profile-list{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,0.015);
+      padding:18px;
+    }
+
+    .profile-row{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      padding:10px 0;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+
+    .profile-row:last-child{
+      border-bottom:none;
+    }
+
+    .profile-key{
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:12px;
+    }
+
+    .profile-value{
+      color:var(--text);
+      text-align:right;
+      max-width:58%;
+      line-height:1.55;
+    }
+
+    .recommend-box{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,0.015);
+      padding:18px;
+    }
+
+    .recommend-box h3{
+      font-size:18px;
+      margin-bottom:12px;
+    }
+
+    .recommend-box p{
+      color:var(--muted);
+      line-height:1.75;
+      margin:0 0 14px;
+    }
+
+    .button{
+      display:block;
+      text-align:center;
+      padding:16px;
+      border:1px solid var(--gold);
+      color:var(--text);
+      text-decoration:none;
+      margin-top:20px;
+      font-family:"Cinzel",serif;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+      background:transparent;
+    }
+
+    .button:hover{
+      background:rgba(201,162,39,0.08);
+    }
+
+    .flow{
+      text-align:center;
+      color:var(--muted);
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-size:12px;
+    }
+
+    .flow strong{
+      color:var(--gold);
+      font-weight:600;
+    }
+
+    .footer{
+      text-align:center;
+      margin-top:26px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .footer a{
+      color:var(--text);
+      text-decoration:none;
+    }
+
+    @media (max-width: 900px){
+      h1{ font-size:38px; }
+      .sub{ font-size:16px; }
+      .grid-2,
+      .grid-3,
+      .grid-2-equal,
+      .precision,
+      .profile-grid{
+        grid-template-columns:1fr;
+      }
+      .profile-value{
+        max-width:55%;
+      }
+    }
+
+    @media (max-width: 560px){
+      .container{
+        padding:36px 14px 54px;
+      }
+      h1{ font-size:30px; }
+      .score{ font-size:56px; }
+      .meaning-box h2{ font-size:26px; }
+      .profile-row{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .profile-value{
+        text-align:left;
+        max-width:100%;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="container">
 
-<img src="logo.png" class="logo"/>
-
-<div class="wrap">
-
-<div class="hero">
-  <div class="headline">Phoenix QuickScore</div>
-  <div class="sub">Rapid operational signal generated from your intake.</div>
-</div>
-
-<div class="card">
-  <div class="score" id="score">--</div>
-  <p id="interpretation">Awaiting data</p>
-</div>
-
-<div class="card">
-  <h3>Primary Constraint</h3>
-  <p id="constraint">—</p>
-</div>
-
-<div class="card">
-
-  <div class="callout">
-    <p>“All build paths begin with diagnostic clarity.”</p>
-
-    <p style="margin-top:12px;">
-      This is not a complete diagnostic. It is a fast signal designed to expose whether deeper structural issues likely exist.
+    <div class="top-kicker">Phoenix Business System</div>
+    <h1>Phoenix QuickScore</h1>
+    <p class="sub">
+      Rapid operational signal generated from your intake. This output provides a fast readiness estimate and directional interpretation — not the full precise diagnostic analysis.
     </p>
 
-    <p style="margin-top:10px;">
-      If your business is showing Conditional or Constrained signals, full diagnostic analysis is strongly recommended before attempting to scale.
-    </p>
+    <div class="section grid-2">
+      <div class="score-box">
+        <div class="score-label">Operational Readiness Score</div>
+        <div class="score" id="score">--</div>
+        <div id="scoreBadge" class="pill pill-soft">Action Required</div>
+        <p id="scoreBoxText" class="muted">
+          The system needs minimum intake information before it can produce a credible signal.
+        </p>
+      </div>
+
+      <div class="meaning-box">
+        <h2>Score Meaning</h2>
+        <p>
+          Phoenix QuickScore uses a fast signal framework to estimate current business condition and likely structural readiness.
+        </p>
+
+        <div class="meaning-item">
+          <span class="dot dot-green"></span>
+          <div><strong>Structured (75–100)</strong> — Business is showing stronger operational stability and scale readiness.</div>
+        </div>
+
+        <div class="meaning-item">
+          <span class="dot dot-amber"></span>
+          <div><strong>Conditional (50–74)</strong> — Business has movement, but gaps are limiting consistency and controlled growth.</div>
+        </div>
+
+        <div class="meaning-item">
+          <span class="dot dot-red"></span>
+          <div><strong>Constrained (0–49)</strong> — Structural weakness is actively preventing dependable growth.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="score-label">Readiness Interpretation</div>
+      <div id="interpretationNotice" class="notice-line">
+        Required fields missing. Please complete Full Name, Email Address, and Business Name before generating QuickScore.
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="score-label">Signal Breakdown</div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Status</h3>
+          <div id="statusPill" class="pill pill-red">Incomplete</div>
+          <p id="statusText">Minimum intake requirements have not yet been met.</p>
+        </div>
+
+        <div class="card">
+          <h3>Primary Constraint</h3>
+          <div id="constraintPill" class="pill pill-blue">Undetermined</div>
+          <p id="constraintText">The dominant signal will appear after intake completion.</p>
+        </div>
+
+        <div class="card">
+          <h3>Next Movement</h3>
+          <div id="movementPill" class="pill pill-blue">PQS → PBRS</div>
+          <p id="movementText">The next stage recommendation will be generated after scoring.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="score-label">Precision Points</div>
+      <div class="precision">
+        <div class="card">
+          <h3>5 Diagnostic Precision Points</h3>
+          <p>
+            QuickScore identifies the dominant growth condition, likely structural drag, probable readiness posture, progression direction, and immediate correction priority.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>10:5 Application</h3>
+          <p>
+            This layer provides a fast institutional read. Deeper precision is expanded later through PBRS and Builder sequence if the operator proceeds.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="score-label">Diagnostic Clarity Doctrine</div>
+      <div class="doctrine">“All build paths begin with diagnostic clarity.”</div>
+    </div>
+
+    <div class="section profile-grid">
+      <div class="profile-list">
+        <div class="score-label">Submitted Profile</div>
+
+        <div class="profile-row">
+          <div class="profile-key">Business</div>
+          <div class="profile-value" id="profileBusiness">—</div>
+        </div>
+
+        <div class="profile-row">
+          <div class="profile-key">Entity Type</div>
+          <div class="profile-value" id="profileEntity">—</div>
+        </div>
+
+        <div class="profile-row">
+          <div class="profile-key">Jurisdiction</div>
+          <div class="profile-value" id="profileState">—</div>
+        </div>
+
+        <div class="profile-row">
+          <div class="profile-key">Revenue Band</div>
+          <div class="profile-value" id="profileRevenue">—</div>
+        </div>
+
+        <div class="profile-row">
+          <div class="profile-key">Team Structure</div>
+          <div class="profile-value" id="profileTeam">—</div>
+        </div>
+
+        <div class="profile-row">
+          <div class="profile-key">Objective</div>
+          <div class="profile-value" id="profileObjective">—</div>
+        </div>
+      </div>
+
+      <div class="recommend-box">
+        <div class="score-label">Recommended Path</div>
+        <h3 id="recommendTitle">Complete the intake to activate progression logic.</h3>
+        <p id="recommendText">
+          QuickScore stores your intake, generates a fast readiness estimate, and preserves continuity for deeper progression inside PBS.
+        </p>
+
+        <p id="recommendNotice" class="muted small">
+          This assessment is not the full precise analysis. For a complete diagnostic with deeper breakdown, proceed to PBRS.
+        </p>
+
+        <a href="https://pbrs.risingphoenixhq.com" class="button">
+          Unlock Full Diagnostic → PBRS
+        </a>
+      </div>
+    </div>
+
+    <div class="section flow">
+      System Flow &nbsp; <strong>PQS</strong> &nbsp;→&nbsp; PBRS &nbsp;→&nbsp; PBB &nbsp;→&nbsp; PSEQ &nbsp;→&nbsp; PNC
+    </div>
+
+    <div class="footer">
+      © Rising Phoenix Enterprises &nbsp; | &nbsp; <a href="https://pbrs.risingphoenixhq.com">Continue to PBRS</a>
+    </div>
+
   </div>
 
-</div>
+  <script>
+    const data = JSON.parse(localStorage.getItem("pqs_intake") || "{}");
 
-<a href="https://pbrs.risingphoenixhq.com/index.html" class="cta">
-  Continue to PBRS →
-</a>
+    const scoreEl = document.getElementById("score");
+    const scoreBadgeEl = document.getElementById("scoreBadge");
+    const scoreBoxTextEl = document.getElementById("scoreBoxText");
+    const interpretationNoticeEl = document.getElementById("interpretationNotice");
 
-</div>
+    const statusPillEl = document.getElementById("statusPill");
+    const statusTextEl = document.getElementById("statusText");
 
-<script>
-const data = JSON.parse(localStorage.getItem("pqs_full") || "{}");
+    const constraintPillEl = document.getElementById("constraintPill");
+    const constraintTextEl = document.getElementById("constraintText");
 
-if(data.pqs_score){
-  document.getElementById("score").textContent = data.pqs_score;
-  document.getElementById("interpretation").textContent = data.pqs_interpretation;
-  document.getElementById("constraint").textContent = data.pqs_primary_constraint;
-}
-</script>
+    const movementPillEl = document.getElementById("movementPill");
+    const movementTextEl = document.getElementById("movementText");
 
+    const recommendTitleEl = document.getElementById("recommendTitle");
+    const recommendTextEl = document.getElementById("recommendText");
+    const recommendNoticeEl = document.getElementById("recommendNotice");
+
+    const profileBusinessEl = document.getElementById("profileBusiness");
+    const profileEntityEl = document.getElementById("profileEntity");
+    const profileStateEl = document.getElementById("profileState");
+    const profileRevenueEl = document.getElementById("profileRevenue");
+    const profileTeamEl = document.getElementById("profileTeam");
+    const profileObjectiveEl = document.getElementById("profileObjective");
+
+    function safe(val){
+      return (val && String(val).trim()) ? String(val).trim() : "—";
+    }
+
+    profileBusinessEl.textContent = safe(data.business_name);
+    profileEntityEl.textContent = safe(data.entity_type);
+    profileStateEl.textContent = safe(data.state);
+    profileRevenueEl.textContent = safe(data.revenue_band);
+    profileTeamEl.textContent = safe(data.team_structure);
+    profileObjectiveEl.textContent = safe(data.objective);
+
+    const hasMinimumRequired =
+      data.full_name &&
+      data.email &&
+      data.business_name;
+
+    if (!hasMinimumRequired) {
+      scoreEl.textContent = "--";
+      scoreBadgeEl.textContent = "Action Required";
+      scoreBadgeEl.className = "pill pill-red";
+
+      scoreBoxTextEl.textContent = "The system needs minimum intake information before it can produce a credible signal.";
+
+      interpretationNoticeEl.textContent = "Required fields missing. Please complete Full Name, Email Address, and Business Name before generating QuickScore.";
+
+      statusPillEl.textContent = "Incomplete";
+      statusPillEl.className = "pill pill-red";
+      statusTextEl.textContent = "Minimum intake requirements have not yet been met.";
+
+      constraintPillEl.textContent = "Undetermined";
+      constraintPillEl.className = "pill pill-blue";
+      constraintTextEl.textContent = "The dominant signal will appear after intake completion.";
+
+      movementPillEl.textContent = "PQS → PBRS";
+      movementPillEl.className = "pill pill-blue";
+      movementTextEl.textContent = "The next stage recommendation will be generated after scoring.";
+
+      recommendTitleEl.textContent = "Complete the intake to activate progression logic.";
+      recommendTextEl.textContent = "QuickScore stores your intake, generates a fast readiness estimate, and preserves continuity for deeper progression inside PBS.";
+      recommendNoticeEl.textContent = "This assessment is not the full precise analysis. For a complete diagnostic with deeper breakdown, proceed to PBRS.";
+    } else {
+      let score = 62;
+      let scored = 0;
+
+      const values = Object.values(data);
+
+      values.forEach(val => {
+        if (typeof val !== "string") return;
+        const clean = val.trim().toLowerCase();
+
+        if (clean === "yes") {
+          score += 6;
+          scored++;
+        } else if (clean === "somewhat" || clean === "occasionally") {
+          score += 3;
+          scored++;
+        } else if (clean === "no") {
+          score += 0;
+          scored++;
+        }
+      });
+
+      if (score > 100) score = 100;
+
+      let state = "Conditional";
+      let badgeClass = "pill pill-amber";
+      let scoreBoxText = "Business has movement, but structural gaps are limiting consistency and controlled growth.";
+      let interpretation = "QuickScore indicates that the business is active, but the underlying structure may not yet be strong enough to support cleaner scale without friction.";
+      let constraintLabel = "Operational Inconsistency";
+      let constraintBody = "Execution flow, internal structure, or commercial clarity are likely limiting stability and dependable progression.";
+      let movementBody = "Proceed to PBRS for a deeper diagnostic and clearer correction path before attempting to scale.";
+      let recommendTitle = "Proceed into full diagnostic analysis.";
+      let recommendText = "QuickScore has produced a fast signal. The next step is PBRS, where structure, constraints, and correction priorities are analyzed with greater precision.";
+      let recommendNotice = "This assessment is not the full precise analysis. For a complete diagnostic with deeper breakdown, proceed to PBRS.";
+
+      if (score >= 75) {
+        state = "Structured";
+        badgeClass = "pill pill-green";
+        scoreBoxText = "Business is showing stronger operational stability and scale readiness.";
+        interpretation = "QuickScore indicates stronger business posture, but deeper diagnostic review is still recommended to identify hidden inefficiencies before expansion.";
+        constraintLabel = "Scaling Alignment";
+        constraintBody = "The business appears stronger, but deeper review is needed to ensure operations, offer structure, and growth posture remain aligned under scale pressure.";
+        movementBody = "Proceed to PBRS to validate that current strength is supported by clean systems and not masking future execution drag.";
+      } else if (score < 50) {
+        state = "Constrained";
+        badgeClass = "pill pill-red";
+        scoreBoxText = "Structural weakness is actively preventing dependable growth.";
+        interpretation = "QuickScore indicates that structural drag is likely interfering with clarity, stability, and scale readiness. Immediate diagnostic depth is recommended.";
+        constraintLabel = "Structural Instability";
+        constraintBody = "The business is likely carrying weaknesses in structure, execution, or commercial control that are preventing more dependable performance.";
+        movementBody = "Proceed to PBRS immediately for a full diagnostic before attempting additional growth pressure.";
+      }
+
+      scoreEl.textContent = score;
+      scoreBadgeEl.textContent = state;
+      scoreBadgeEl.className = badgeClass;
+      scoreBoxTextEl.textContent = scoreBoxText;
+
+      interpretationNoticeEl.textContent = interpretation;
+
+      statusPillEl.textContent = state;
+      statusPillEl.className = badgeClass;
+      statusTextEl.textContent = scoreBoxText;
+
+      constraintPillEl.textContent = constraintLabel;
+      constraintPillEl.className = "pill pill-blue";
+      constraintTextEl.textContent = constraintBody;
+
+      movementPillEl.textContent = "PQS → PBRS";
+      movementPillEl.className = "pill pill-blue";
+      movementTextEl.textContent = movementBody;
+
+      recommendTitleEl.textContent = recommendTitle;
+      recommendTextEl.textContent = recommendText;
+      recommendNoticeEl.textContent = recommendNotice;
+    }
+  </script>
 </body>
 </html> 
