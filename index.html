@@ -322,6 +322,11 @@
       padding-right:40px;
     }
 
+    select option{
+      color:#111;
+      background:#fff;
+    }
+
     .band-pill,
     .pill{
       display:inline-flex;
@@ -476,7 +481,7 @@
       font-size:14px;
       letter-spacing:0.12em;
       background:rgba(255,255,255,0.01);
-      transition:background-color .18s ease, color .18s ease, border-color .18s ease, transform .18s ease, opacity .18s ease;
+      transition:background-color .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
       cursor:pointer;
       width:100%;
       text-align:center;
@@ -489,28 +494,10 @@
       transform:translateY(-1px);
     }
 
-    .cta:disabled{
-      opacity:0.72;
-      cursor:progress;
-      transform:none;
-    }
-
     .cta-note{
       font-size:12px;
       line-height:1.6;
       color:#8b929b;
-    }
-
-    .checkout-note{
-      border-top:1px solid var(--line);
-      padding-top:16px;
-      margin-top:6px;
-    }
-
-    .checkout-note p{
-      font-size:13px;
-      line-height:1.75;
-      color:var(--muted);
     }
 
     .nace-rail{
@@ -749,7 +736,6 @@
 
           <section class="section">
             <div class="section-label">QuickScore Capture</div>
-
             <form id="pqs-form" novalidate>
               <div class="field-grid">
                 <div class="field">
@@ -770,7 +756,7 @@
                 <div class="field">
                   <label for="entity_type">Entity Type</label>
                   <select id="entity_type" name="entity_type">
-                    <option value="">Select entity type</option>
+                    <option value="" selected disabled>Select entity type</option>
                     <option value="sole_proprietor">Sole Proprietor</option>
                     <option value="llc">LLC</option>
                     <option value="corp">Corporation</option>
@@ -788,7 +774,7 @@
                 <div class="field">
                   <label for="revenue_band">Revenue Band</label>
                   <select id="revenue_band" name="revenue_band">
-                    <option value="">Select revenue band</option>
+                    <option value="" selected disabled>Select revenue band</option>
                     <option value="under_50k">Under $50K</option>
                     <option value="50k_250k">$50K–$250K</option>
                     <option value="250k_1m">$250K–$1M</option>
@@ -800,7 +786,7 @@
                 <div class="field">
                   <label for="team_structure">Team Structure</label>
                   <select id="team_structure" name="team_structure">
-                    <option value="">Select team structure</option>
+                    <option value="" selected disabled>Select team structure</option>
                     <option value="solo">Solo Operator</option>
                     <option value="small_team">Small Team</option>
                     <option value="team">Established Team</option>
@@ -810,7 +796,7 @@
                 <div class="field">
                   <label for="revenue_consistency">Revenue Consistency</label>
                   <select id="revenue_consistency" name="revenue_consistency">
-                    <option value="">Select revenue consistency</option>
+                    <option value="" selected disabled>Select revenue consistency</option>
                     <option value="consistent">Consistent</option>
                     <option value="mostly_consistent">Mostly Consistent</option>
                     <option value="inconsistent">Inconsistent</option>
@@ -821,7 +807,7 @@
                 <div class="field">
                   <label for="offer_structure">Offer Structure</label>
                   <select id="offer_structure" name="offer_structure">
-                    <option value="">Select offer structure</option>
+                    <option value="" selected disabled>Select offer structure</option>
                     <option value="clear_offer">Clear Offer</option>
                     <option value="single_offer">Single Offer</option>
                     <option value="multiple_offers">Multiple Offers</option>
@@ -832,7 +818,7 @@
                 <div class="field">
                   <label for="operations_structure">Operations Structure</label>
                   <select id="operations_structure" name="operations_structure">
-                    <option value="">Select operations structure</option>
+                    <option value="" selected disabled>Select operations structure</option>
                     <option value="systemised">Systemised</option>
                     <option value="developing">Developing</option>
                     <option value="informal">Informal</option>
@@ -843,7 +829,7 @@
                 <div class="field">
                   <label for="acquisition_channel">Primary Acquisition Channel</label>
                   <select id="acquisition_channel" name="acquisition_channel">
-                    <option value="">Select acquisition channel</option>
+                    <option value="" selected disabled>Select acquisition channel</option>
                     <option value="referrals">Referrals</option>
                     <option value="paid">Paid</option>
                     <option value="organic_social">Organic Social</option>
@@ -862,7 +848,6 @@
 
           <section class="section">
             <div class="section-label">Operational Readiness Score</div>
-
             <div class="status-row">
               <div class="score-card">
                 <div class="score-number" id="pqs-score">--</div>
@@ -901,15 +886,12 @@
           <section class="section">
             <div class="section-label">Readiness Interpretation</div>
             <div class="callout">
-              <p id="evaluation-statement">
-                Complete the intake to generate your readiness interpretation.
-              </p>
+              <p id="evaluation-statement">Complete the intake to generate your readiness interpretation.</p>
             </div>
           </section>
 
           <section class="section">
             <div class="section-label">Signal Breakdown</div>
-
             <div class="grid-3">
               <div class="signal-card">
                 <h3>Status</h3>
@@ -933,7 +915,6 @@
 
           <section class="section">
             <div class="section-label">Precision Points</div>
-
             <div class="grid-2">
               <div class="intel-card">
                 <h3>5 Diagnostic Precision Points</h3>
@@ -952,35 +933,36 @@
           </section>
 
           <section class="section">
-            <div class="section-label">Submitted Profile</div>
+            <div class="section-label">Diagnostic Clarity Doctrine</div>
+            <div class="callout">
+              <p><strong>“All build paths begin with diagnostic clarity.”</strong></p>
+            </div>
+          </section>
 
+          <section class="section">
+            <div class="section-label">Submitted Profile</div>
             <div class="grid-2">
               <div class="meta-box">
                 <div class="meta-row">
                   <span class="meta-key">Business</span>
                   <span id="summary-business">—</span>
                 </div>
-
                 <div class="meta-row">
                   <span class="meta-key">Entity Type</span>
                   <span id="summary-entity">—</span>
                 </div>
-
                 <div class="meta-row">
                   <span class="meta-key">Jurisdiction</span>
                   <span id="summary-jurisdiction">—</span>
                 </div>
-
                 <div class="meta-row">
                   <span class="meta-key">Revenue Band</span>
                   <span id="summary-revenue">—</span>
                 </div>
-
                 <div class="meta-row">
                   <span class="meta-key">Team Structure</span>
                   <span id="summary-team">—</span>
                 </div>
-
                 <div class="meta-row">
                   <span class="meta-key">Objective</span>
                   <span id="summary-objective">—</span>
@@ -995,20 +977,28 @@
                   </p>
                 </div>
 
-                <button class="cta" id="submit-btn" type="button">
-                  Generate QuickScore →
-                </button>
+                <button class="cta" id="submit-btn" type="button">Generate QuickScore →</button>
 
                 <div class="cta-note" id="cta-note">
                   QuickScore stores your intake, generates a fast readiness estimate, and preserves continuity for deeper progression inside PBS.
                 </div>
-
-                <div class="checkout-note">
-                  <p id="stripe-note">
-                    QuickScore is released as a $19 private-access readiness check. After signal generation, you will continue into secure Stripe checkout to unlock the continuity output page.
-                  </p>
-                </div>
               </div>
+            </div>
+          </section>
+
+          <section class="section hidden" id="checkout-section">
+            <div class="section-label">Secure Checkout</div>
+            <h2 class="section-title">Controlled Continuity</h2>
+            <p class="section-copy" id="checkout-copy">
+              Your preliminary signal has been generated. Secure checkout is the next step so the continuity output can unlock and progression can move into PBRS.
+            </p>
+            <div style="margin-top:16px;">
+              <a class="cta" id="checkout-link" href="https://buy.stripe.com/eVq7sL7Uc2Mcdeu189fYY0d">
+                Continue to Secure Checkout →
+              </a>
+            </div>
+            <div style="margin-top:14px;" class="cta-note">
+              Checkout will process the Phoenix QuickScore — Business Readiness Check ($19). After successful payment, Stripe returns to the PQS output page so the saved signal can be rendered.
             </div>
           </section>
         </div>
@@ -1054,8 +1044,7 @@
   </main>
 
   <script>
-    const PQS_STRIPE_URL = "https://buy.stripe.com/eVq7sL7Uc2Mcdeu189fYY0d";
-    const PQS_OUTPUT_URL = "https://pqs.risingphoenixhq.com/output.html";
+    const STRIPE_PQS_LINK = "https://buy.stripe.com/eVq7sL7Uc2Mcdeu189fYY0d";
 
     function clean(value) {
       return String(value || "").trim();
@@ -1194,11 +1183,11 @@
       let statusTone = "state-amber";
       let interpretation = "Your current signal indicates meaningful potential, but structural gaps are still limiting consistency and dependable growth.";
       let nextPath = "PBRS";
-      let nextHref = "https://pbrs.risingphoenixhq.com/index.html";
       let nextCopy = "The recommended next move is Phoenix Business Readiness Snapshot, where this early signal is converted into deeper diagnosis and structured readiness interpretation.";
-      let recommendedPath = "Complete secure checkout to unlock your PQS output and continue into PBRS for deeper diagnosis, better precision, and a stronger correction path.";
+      let recommendedPath = "Continue into secure checkout to unlock the PQS continuity output and move toward PBRS.";
       let naceGuidance = "NACE Guidance: QuickScore has identified viable signal, but more precision is required before deeper build decisions should be made.";
       let stateLine = "QuickScore is a first-read layer. Stronger certainty is achieved by moving into PBRS, where the operating condition is evaluated at a deeper level.";
+      let checkoutCopy = "Your preliminary signal has been generated. Secure checkout is the next step so the continuity output can unlock and progression can move into PBRS.";
 
       if (score >= 75) {
         band = "structured";
@@ -1207,8 +1196,9 @@
         statusLabel = "Structured";
         statusTone = "state-green";
         interpretation = "Your current signal indicates a stronger operating condition than most entry-stage operators. The business appears more structurally intact, though deeper diagnostic work is still recommended before advancing into heavier build decisions.";
-        recommendedPath = "Complete secure checkout to unlock your PQS output, then continue into PBRS to confirm condition, expose remaining weaknesses, and establish the correct next sequence.";
+        recommendedPath = "Your signal is stronger. Secure checkout will unlock the continuity output, after which you can proceed into PBRS for deeper confirmation.";
         naceGuidance = "NACE Guidance: This is a stronger condition, but not a final one. QuickScore is signaling that deeper diagnosis should now be used to confirm what is actually ready.";
+        checkoutCopy = "Your signal reflects stronger initial readiness. Secure checkout unlocks the continuity output so progression can continue into PBRS for deeper confirmation.";
       }
 
       if (score <= 49) {
@@ -1220,6 +1210,7 @@
         interpretation = "Your current signal indicates material structural weakness. At this stage, the business needs correction and grounded clarity before stronger scale pressure should be applied.";
         recommendedPath = "QuickScore indicates structural weakness. Complete secure checkout to unlock your output and move into PBRS for deeper correction-grade diagnosis.";
         naceGuidance = "NACE Guidance: The system is signaling that force should not be increased without clearer structure. Move into PBRS so the weakness can be defined properly.";
+        checkoutCopy = "Your signal indicates meaningful constraint. Secure checkout unlocks the continuity output so progression can move into PBRS for deeper correction-grade diagnosis.";
       }
 
       let constraintLabel = titleCase(constraint);
@@ -1252,11 +1243,11 @@
         statusTone,
         interpretation,
         nextPath,
-        nextHref,
         nextCopy,
         recommendedPath,
         naceGuidance,
         stateLine,
+        checkoutCopy,
         constraint,
         constraintLabel,
         constraintTone,
@@ -1266,7 +1257,18 @@
 
     function buildPqsObject(data, result) {
       return {
-        ...data,
+        full_name: data.full_name,
+        email: data.email,
+        business_name: data.business_name,
+        entity_type: data.entity_type,
+        state_country: data.state_country,
+        revenue_band: data.revenue_band,
+        team_structure: data.team_structure,
+        revenue_consistency: data.revenue_consistency,
+        offer_structure: data.offer_structure,
+        operations_structure: data.operations_structure,
+        acquisition_channel: data.acquisition_channel,
+        primary_objective: data.primary_objective,
         pqs_score: result.score,
         pqs_band: result.band,
         pqs_band_label: result.bandLabel,
@@ -1275,55 +1277,14 @@
         current_stage: "pqs",
         recommended_next_stage: "pbrs",
         evaluation_entry: "pqs_completed",
+        checkout_required: true,
         pbs_continuity_confirmed: true,
-        stripe_checkout_url: PQS_STRIPE_URL,
-        stripe_return_url: PQS_OUTPUT_URL
+        saved_at: new Date().toISOString()
       };
     }
 
-    const existingPqs = JSON.parse(localStorage.getItem("pqs_intake") || "{}");
-    const existingPbbFull = JSON.parse(localStorage.getItem("pbb_full") || "{}");
-    const existingPbrs = JSON.parse(localStorage.getItem("pbrs_intake") || "{}");
-
-    const seed = {
-      ...existingPqs,
-      ...existingPbbFull,
-      ...existingPbrs
-    };
-
-    document.getElementById("full_name").value = clean(seed.full_name || seed.customer_name || "");
-    document.getElementById("email").value = clean(seed.email || seed.customer_email || "");
-    document.getElementById("business_name").value = clean(seed.business_name || seed.legal_name || "");
-    document.getElementById("entity_type").value = clean(seed.entity_type || "");
-    document.getElementById("state_country").value = clean(seed.state_country || "");
-    document.getElementById("revenue_band").value = clean(seed.revenue_band || "");
-    document.getElementById("team_structure").value = clean(seed.team_structure || "");
-    document.getElementById("revenue_consistency").value = clean(seed.revenue_consistency || "");
-    document.getElementById("offer_structure").value = clean(seed.offer_structure || "");
-    document.getElementById("operations_structure").value = clean(seed.operations_structure || "");
-    document.getElementById("acquisition_channel").value = clean(seed.acquisition_channel || "");
-    document.getElementById("primary_objective").value = clean(seed.primary_objective || seed.notes || "");
-
-    function updateSummaryFromInputs() {
-      text("summary-business", clean(document.getElementById("business_name").value) || "—");
-      text("summary-entity", titleCase(clean(document.getElementById("entity_type").value)) || "—");
-      text("summary-jurisdiction", clean(document.getElementById("state_country").value) || "—");
-      text("summary-revenue", titleCase(clean(document.getElementById("revenue_band").value)) || "—");
-      text("summary-team", titleCase(clean(document.getElementById("team_structure").value)) || "—");
-      text("summary-objective", clean(document.getElementById("primary_objective").value) || "—");
-    }
-
-    updateSummaryFromInputs();
-
-    Array.from(document.querySelectorAll("input, select, textarea")).forEach(function(el){
-      el.addEventListener("input", updateSummaryFromInputs);
-      el.addEventListener("change", updateSummaryFromInputs);
-    });
-
-    document.getElementById("submit-btn").addEventListener("click", function() {
-      const submitBtn = document.getElementById("submit-btn");
-
-      const intake = {
+    function getIntake() {
+      return {
         full_name: clean(document.getElementById("full_name").value),
         email: clean(document.getElementById("email").value),
         business_name: clean(document.getElementById("business_name").value),
@@ -1337,19 +1298,62 @@
         acquisition_channel: clean(document.getElementById("acquisition_channel").value),
         primary_objective: clean(document.getElementById("primary_objective").value)
       };
+    }
+
+    function updateSummaryFromInputs() {
+      const intake = getIntake();
+      text("summary-business", intake.business_name || "—");
+      text("summary-entity", titleCase(intake.entity_type));
+      text("summary-jurisdiction", intake.state_country || "—");
+      text("summary-revenue", titleCase(intake.revenue_band));
+      text("summary-team", titleCase(intake.team_structure));
+      text("summary-objective", intake.primary_objective || "—");
+    }
+
+    function resetForFreshSession() {
+      localStorage.removeItem("pqs_intake");
+      localStorage.removeItem("pqs_full");
+      sessionStorage.removeItem("pqs_checkout_ready");
+      sessionStorage.removeItem("pqs_generated");
+    }
+
+    function wireProgression(result) {
+      const checkoutSection = document.getElementById("checkout-section");
+      const checkoutLink = document.getElementById("checkout-link");
+
+      text("checkout-copy", result.checkoutCopy);
+      checkoutLink.href = STRIPE_PQS_LINK;
+      checkoutSection.classList.remove("hidden");
+      sessionStorage.setItem("pqs_checkout_ready", "true");
+    }
+
+    function showValidationState() {
+      html(
+        "evaluation-statement",
+        "Required fields missing. Please complete <strong>Full Name</strong>, <strong>Email Address</strong>, and <strong>Business Name</strong> before generating QuickScore."
+      );
+      setBandPill("score-band-pill", "Action Required", "state-red");
+      text("score-band-text", "The system needs minimum intake information before it can produce a credible signal.");
+      text("pqs-score", "--");
+      setPill("status-pill", "Incomplete", "state-red");
+      text("status-text", "Minimum intake requirements have not yet been met.");
+      setPill("constraint-pill", "Undetermined", "state-blue");
+      text("constraint-text", "The dominant signal will appear after intake completion.");
+      setPill("next-pill", "PQS → PBRS", "state-blue");
+      text("next-text", "The next stage recommendation will be generated after scoring.");
+      text("recommended-path", "Complete the intake to activate progression logic.");
+      text("nace-guidance", "Minimum intake information is required before the system can produce a credible signal.");
+      text("nace-state-line", "QuickScore remains in intake state until required information is completed.");
+      document.getElementById("checkout-section").classList.add("hidden");
+      sessionStorage.removeItem("pqs_checkout_ready");
+      sessionStorage.removeItem("pqs_generated");
+    }
+
+    function generateQuickScore() {
+      const intake = getIntake();
 
       if (!intake.full_name || !intake.email || !intake.business_name) {
-        html(
-          "evaluation-statement",
-          "Required fields missing. Please complete <strong>Full Name</strong>, <strong>Email Address</strong>, and <strong>Business Name</strong> before generating QuickScore."
-        );
-        setBandPill("score-band-pill", "Action Required", "state-red");
-        text("score-band-text", "The system needs minimum intake information before it can produce a credible signal.");
-        text("pqs-score", "--");
-        setPill("status-pill", "Incomplete", "state-red");
-        text("status-text", "Minimum intake requirements have not yet been met.");
-        setPill("constraint-pill", "Undetermined", "state-blue");
-        text("constraint-text", "The dominant signal will appear after intake completion.");
+        showValidationState();
         return;
       }
 
@@ -1358,35 +1362,91 @@
 
       localStorage.setItem("pqs_intake", JSON.stringify(intake));
       localStorage.setItem("pqs_full", JSON.stringify(pqsFull));
+      sessionStorage.setItem("pqs_generated", "true");
 
       text("pqs-score", result.score);
       setBandPill("score-band-pill", result.bandLabel, result.bandTone);
       text("score-band-text", result.interpretation);
       text("evaluation-statement", result.interpretation);
+
       setPill("status-pill", result.statusLabel, result.statusTone);
       text("status-text", "Your current score indicates that your business is in a " + result.bandLabel.toLowerCase() + " operating condition and requires the correct next movement.");
+
       setPill("constraint-pill", result.constraintLabel, result.constraintTone);
       text("constraint-text", result.constraintText);
+
       setPill("next-pill", "PQS → " + result.nextPath, "state-blue");
-      text("next-text", "Secure checkout will unlock the saved continuity output and move progression into " + result.nextPath + ".");
+      text("next-text", result.nextCopy);
+
       text("recommended-path", result.recommendedPath);
       text("nace-guidance", result.naceGuidance);
       text("nace-state-line", result.stateLine);
 
       const noteText = result.band === "structured"
-        ? "QuickScore indicates stronger initial readiness. Complete secure checkout to unlock your output, then continue into PBRS so this strength can be confirmed with deeper precision."
+        ? "QuickScore indicates stronger initial readiness. Secure checkout unlocks continuity output, then progression can continue into PBRS."
         : result.band === "constrained"
-          ? "QuickScore indicates structural weakness. Complete secure checkout to unlock your output and move into PBRS for deeper correction-grade diagnosis."
-          : "QuickScore indicates movement with material gaps. Complete secure checkout to unlock your output and continue into PBRS for deeper diagnosis and cleaner corrective direction.";
-
+          ? "QuickScore indicates structural weakness. Secure checkout unlocks continuity output so the operator can move into PBRS for deeper diagnosis."
+          : "QuickScore indicates movement with material gaps. Secure checkout unlocks continuity output so the operator can continue toward PBRS.";
       text("cta-note", noteText);
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Redirecting to Secure Checkout…";
+      wireProgression(result);
 
-      setTimeout(function() {
-        window.location.href = PQS_STRIPE_URL;
-      }, 250);
+      document.getElementById("checkout-section").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    function updateNaceGuidance() {
+      const intake = getIntake();
+      const completedCount = Object.values(intake).filter(Boolean).length;
+
+      if (completedCount === 0) {
+        text("nace-guidance", "Welcome to Phoenix QuickScore. This is your rapid-entry signal layer. Complete the intake and the system will generate a fast institutional read on current readiness.");
+        text("nace-state-line", "Progression inside PBS is condition-based. QuickScore is designed to estimate current posture quickly, then move the operator into the correct next layer without confusion.");
+        return;
+      }
+
+      if (completedCount < 5) {
+        text("nace-guidance", "The intake is underway. Continue entering only current-condition information so the signal remains clean.");
+        text("nace-state-line", "QuickScore is gathering baseline structural indicators before score generation.");
+        return;
+      }
+
+      text("nace-guidance", "Your intake is approaching signal readiness. When complete, generate QuickScore to produce the first institutional read.");
+      text("nace-state-line", "After signal generation, secure checkout unlocks the continuity output and preserves progression into deeper diagnostic flow.");
+    }
+
+    window.addEventListener("load", function() {
+      resetForFreshSession();
+      document.getElementById("pqs-form").reset();
+      updateSummaryFromInputs();
+      updateNaceGuidance();
+      document.getElementById("checkout-link").href = STRIPE_PQS_LINK;
+    });
+
+    Array.from(document.querySelectorAll("input, select, textarea")).forEach(function(el){
+      el.addEventListener("input", function() {
+        updateSummaryFromInputs();
+        updateNaceGuidance();
+      });
+
+      el.addEventListener("change", function() {
+        updateSummaryFromInputs();
+        updateNaceGuidance();
+      });
+    });
+
+    document.getElementById("submit-btn").addEventListener("click", generateQuickScore);
+
+    document.getElementById("checkout-link").addEventListener("click", function() {
+      const generated = sessionStorage.getItem("pqs_generated") === "true";
+      if (!generated) {
+        return;
+      }
+
+      text("nace-guidance", "Secure checkout initiated. Maintain session continuity.");
+      text("nace-state-line", "After payment completion, Stripe returns to the PQS output page so the saved signal can render.");
     });
   </script>
 </body>
