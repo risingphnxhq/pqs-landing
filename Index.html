@@ -1,4 +1,4 @@
-<!DOCTYPE html>            
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -617,10 +617,6 @@
       color:#cfd4da;
     }
 
-    .hidden{
-      display:none !important;
-    }
-
     @media (max-width: 1080px){
       .workspace{
         grid-template-columns:1fr;
@@ -984,7 +980,7 @@
                 </div>
               </div>
             </div>
-          </section>          
+          </section>
         </div>
 
         <aside class="nace-rail">
@@ -1020,9 +1016,9 @@
 
       <footer class="footer">
         © Rising Phoenix Enterprises &nbsp; | &nbsp;
-        <a href="#">Terms</a>
+        <a href="./terms.html">Terms</a>
         &nbsp; | &nbsp;
-        <a href="#">Privacy</a>
+        <a href="./privacy.html">Privacy</a>
       </footer>
     </div>
   </main>
@@ -1168,10 +1164,9 @@
       let interpretation = "Your current signal indicates meaningful potential, but structural gaps are still limiting consistency and dependable growth.";
       let nextPath = "PBRS";
       let nextCopy = "The recommended next move is Phoenix Business Readiness Snapshot, where this early signal is converted into deeper diagnosis and structured readiness interpretation.";
-      let recommendedPath = "Continue into secure checkout to unlock the PQS continuity output and move toward PBRS.";
+      let recommendedPath = "Proceed to secure checkout to preserve continuity and unlock the next controlled movement toward PBRS.";
       let naceGuidance = "NACE Guidance: QuickScore has identified viable signal, but more precision is required before deeper build decisions should be made.";
       let stateLine = "QuickScore is a first-read layer. Stronger certainty is achieved by moving into PBRS, where the operating condition is evaluated at a deeper level.";
-      let checkoutCopy = "Your preliminary signal has been generated. Secure checkout is the next step so the continuity output can unlock and progression can move into PBRS.";
 
       if (score >= 75) {
         band = "structured";
@@ -1180,9 +1175,8 @@
         statusLabel = "Structured";
         statusTone = "state-green";
         interpretation = "Your current signal indicates a stronger operating condition than most entry-stage operators. The business appears more structurally intact, though deeper diagnostic work is still recommended before advancing into heavier build decisions.";
-        recommendedPath = "Your signal is stronger. Secure checkout will unlock the continuity output, after which you can proceed into PBRS for deeper confirmation.";
+        recommendedPath = "Your signal is stronger. Proceed to secure checkout to preserve continuity and advance toward PBRS for deeper confirmation.";
         naceGuidance = "NACE Guidance: This is a stronger condition, but not a final one. QuickScore is signaling that deeper diagnosis should now be used to confirm what is actually ready.";
-        checkoutCopy = "Your signal reflects stronger initial readiness. Secure checkout unlocks the continuity output so progression can continue into PBRS for deeper confirmation.";
       }
 
       if (score <= 49) {
@@ -1192,9 +1186,8 @@
         statusLabel = "Constrained";
         statusTone = "state-red";
         interpretation = "Your current signal indicates material structural weakness. At this stage, the business needs correction and grounded clarity before stronger scale pressure should be applied.";
-        recommendedPath = "QuickScore indicates structural weakness. Complete secure checkout to unlock your output and move into PBRS for deeper correction-grade diagnosis.";
+        recommendedPath = "QuickScore indicates structural weakness. Proceed to secure checkout to preserve continuity and move into PBRS for deeper correction-grade diagnosis.";
         naceGuidance = "NACE Guidance: The system is signaling that force should not be increased without clearer structure. Move into PBRS so the weakness can be defined properly.";
-        checkoutCopy = "Your signal indicates meaningful constraint. Secure checkout unlocks the continuity output so progression can move into PBRS for deeper correction-grade diagnosis.";
       }
 
       let constraintLabel = titleCase(constraint);
@@ -1231,7 +1224,6 @@
         recommendedPath,
         naceGuidance,
         stateLine,
-        checkoutCopy,
         constraint,
         constraintLabel,
         constraintTone,
@@ -1297,18 +1289,7 @@
     function resetForFreshSession() {
       localStorage.removeItem("pqs_intake");
       localStorage.removeItem("pqs_full");
-      sessionStorage.removeItem("pqs_checkout_ready");
       sessionStorage.removeItem("pqs_generated");
-    }
-
-    function wireProgression(result) {
-      const checkoutSection = document.getElementById("checkout-section");
-      const checkoutLink = document.getElementById("checkout-link");
-
-      text("checkout-copy", result.checkoutCopy);
-      checkoutLink.href = STRIPE_PQS_LINK;
-      checkoutSection.classList.remove("hidden");
-      sessionStorage.setItem("pqs_checkout_ready", "true");
     }
 
     function showValidationState() {
@@ -1328,57 +1309,6 @@
       text("recommended-path", "Complete the intake to activate progression logic.");
       text("nace-guidance", "Minimum intake information is required before the system can produce a credible signal.");
       text("nace-state-line", "QuickScore remains in intake state until required information is completed.");
-      document.getElementById("checkout-section").classList.add("hidden");
-      sessionStorage.removeItem("pqs_checkout_ready");
-      sessionStorage.removeItem("pqs_generated");
-    }
-
-    function generateQuickScore() {
-      const intake = getIntake();
-
-      if (!intake.full_name || !intake.email || !intake.business_name) {
-        showValidationState();
-        return;
-      }
-
-      const result = calculateQuickScore(intake);
-      const pqsFull = buildPqsObject(intake, result);
-
-      localStorage.setItem("pqs_intake", JSON.stringify(intake));
-      localStorage.setItem("pqs_full", JSON.stringify(pqsFull));
-      sessionStorage.setItem("pqs_generated", "true");
-
-      text("pqs-score", result.score);
-      setBandPill("score-band-pill", result.bandLabel, result.bandTone);
-      text("score-band-text", result.interpretation);
-      text("evaluation-statement", result.interpretation);
-
-      setPill("status-pill", result.statusLabel, result.statusTone);
-      text("status-text", "Your current score indicates that your business is in a " + result.bandLabel.toLowerCase() + " operating condition and requires the correct next movement.");
-
-      setPill("constraint-pill", result.constraintLabel, result.constraintTone);
-      text("constraint-text", result.constraintText);
-
-      setPill("next-pill", "PQS → " + result.nextPath, "state-blue");
-      text("next-text", result.nextCopy);
-
-      text("recommended-path", result.recommendedPath);
-      text("nace-guidance", result.naceGuidance);
-      text("nace-state-line", result.stateLine);
-
-      const noteText = result.band === "structured"
-        ? "QuickScore indicates stronger initial readiness. Secure checkout unlocks continuity output, then progression can continue into PBRS."
-        : result.band === "constrained"
-          ? "QuickScore indicates structural weakness. Secure checkout unlocks continuity output so the operator can move into PBRS for deeper diagnosis."
-          : "QuickScore indicates movement with material gaps. Secure checkout unlocks continuity output so the operator can continue toward PBRS.";
-      text("cta-note", noteText);
-
-      wireProgression(result);
-
-      document.getElementById("checkout-section").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
     }
 
     function updateNaceGuidance() {
@@ -1398,15 +1328,82 @@
       }
 
       text("nace-guidance", "Your intake is approaching signal readiness. When complete, generate QuickScore to produce the first institutional read.");
-      text("nace-state-line", "After signal generation, secure checkout unlocks the continuity output and preserves progression into deeper diagnostic flow.");
+      text("nace-state-line", "After signal generation, secure checkout preserves continuity and moves the operator into the paid PQS flow.");
+    }
+
+    function applyGeneratedState(result) {
+      text("pqs-score", result.score);
+      setBandPill("score-band-pill", result.bandLabel, result.bandTone);
+      text("score-band-text", result.interpretation);
+      text("evaluation-statement", result.interpretation);
+
+      setPill("status-pill", result.statusLabel, result.statusTone);
+      text("status-text", "Your current score indicates that your business is in a " + result.bandLabel.toLowerCase() + " operating condition and requires the correct next movement.");
+
+      setPill("constraint-pill", result.constraintLabel, result.constraintTone);
+      text("constraint-text", result.constraintText);
+
+      setPill("next-pill", "PQS → " + result.nextPath, "state-blue");
+      text("next-text", result.nextCopy);
+
+      text("recommended-path", result.recommendedPath);
+      text("nace-guidance", result.naceGuidance);
+      text("nace-state-line", result.stateLine);
+
+      const noteText = result.band === "structured"
+        ? "QuickScore indicates stronger initial readiness. Secure payment preserves continuity, then the operator advances toward PBRS."
+        : result.band === "constrained"
+          ? "QuickScore indicates structural weakness. Secure payment preserves continuity so the operator can move into PBRS for deeper diagnosis."
+          : "QuickScore indicates movement with material gaps. Secure payment preserves continuity so the operator can continue toward PBRS.";
+      text("cta-note", noteText);
+    }
+
+    function generateQuickScoreAndContinue() {
+      const intake = getIntake();
+
+      const requiredIds = ["full_name", "email", "business_name"];
+      let firstInvalid = null;
+
+      requiredIds.forEach(function(id){
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (!clean(el.value)) {
+          el.style.borderColor = "rgba(161,74,74,0.85)";
+          if (!firstInvalid) firstInvalid = el;
+        } else {
+          el.style.borderColor = "";
+        }
+      });
+
+      if (!intake.full_name || !intake.email || !intake.business_name) {
+        showValidationState();
+        if (firstInvalid) firstInvalid.focus();
+        alert("Please complete Full Name, Email Address, and Business Name before continuing.");
+        return;
+      }
+
+      const result = calculateQuickScore(intake);
+      const pqsFull = buildPqsObject(intake, result);
+
+      localStorage.setItem("pqs_intake", JSON.stringify(intake));
+      localStorage.setItem("pqs_full", JSON.stringify(pqsFull));
+      sessionStorage.setItem("pqs_generated", "true");
+
+      applyGeneratedState(result);
+
+      setTimeout(function () {
+        window.location.href = STRIPE_PQS_LINK;
+      }, 250);
     }
 
     window.addEventListener("load", function() {
       resetForFreshSession();
-      document.getElementById("pqs-form").reset();
+
+      const form = document.getElementById("pqs-form");
+      if (form) form.reset();
+
       updateSummaryFromInputs();
       updateNaceGuidance();
-      document.getElementById("checkout-link").href = STRIPE_PQS_LINK;
     });
 
     Array.from(document.querySelectorAll("input, select, textarea")).forEach(function(el){
@@ -1422,56 +1419,9 @@
     });
 
     document.getElementById("submit-btn").addEventListener("click", function (e) {
-  e.preventDefault();
-
-  const fullNameEl = document.getElementById("full_name");
-  const emailEl = document.getElementById("email");
-  const businessNameEl = document.getElementById("business_name");
-
-  const fullName = clean(fullNameEl ? fullNameEl.value : "");
-  const email = clean(emailEl ? emailEl.value : "");
-  const businessName = clean(businessNameEl ? businessNameEl.value : "");
-
-  let firstInvalid = null;
-
-  [fullNameEl, emailEl, businessNameEl].forEach((field) => {
-    if (!field) return;
-
-    if (!clean(field.value)) {
-      field.style.borderColor = "rgba(161,74,74,0.85)";
-      if (!firstInvalid) firstInvalid = field;
-    } else {
-      field.style.borderColor = "";
-    }
-  });
-
-  if (!fullName || !email || !businessName) {
-    if (firstInvalid) firstInvalid.focus();
-    alert("Please complete Full Name, Email Address, and Business Name before continuing.");
-    return;
-  }
-
-  const pqsData = {
-    full_name: fullName,
-    email: email,
-    business_name: businessName,
-    entity_type: clean(document.getElementById("entity_type")?.value),
-    state_country: clean(document.getElementById("state_country")?.value),
-    revenue_band: clean(document.getElementById("revenue_band")?.value),
-    revenue_consistency: clean(document.getElementById("revenue_consistency")?.value),
-    offer_structure: clean(document.getElementById("offer_structure")?.value),
-    team_structure: clean(document.getElementById("team_structure")?.value),
-    operations_structure: clean(document.getElementById("operations_structure")?.value),
-    acquisition_channel: clean(document.getElementById("acquisition_channel")?.value),
-    primary_objective: clean(document.getElementById("primary_objective")?.value),
-    submitted_at: new Date().toISOString()
-  };
-
-  localStorage.setItem("pqs_intake", JSON.stringify(pqsData));
-
-  window.location.href = STRIPE_PQS_LINK;
-}); 
-   
+      e.preventDefault();
+      generateQuickScoreAndContinue();
+    });
   </script>
 </body>
 </html> 
