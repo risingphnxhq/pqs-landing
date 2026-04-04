@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>            
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -984,23 +984,7 @@
                 </div>
               </div>
             </div>
-          </section>
-
-          <section class="section hidden" id="checkout-section">
-            <div class="section-label">Secure Checkout</div>
-            <h2 class="section-title">Controlled Continuity</h2>
-            <p class="section-copy" id="checkout-copy">
-              Your preliminary signal has been generated. Secure checkout is the next step so the continuity output can unlock and progression can move into PBRS.
-            </p>
-            <div style="margin-top:16px;">
-              <a class="cta" id="checkout-link" href="https://buy.stripe.com/eVq7sL7Uc2Mcdeu189fYY0d">
-                Continue to Secure Checkout →
-              </a>
-            </div>
-            <div style="margin-top:14px;" class="cta-note">
-              Checkout will process the Phoenix QuickScore — Business Readiness Check ($19). After successful payment, Stripe returns to the PQS output page so the saved signal can be rendered.
-            </div>
-          </section>
+          </section>          
         </div>
 
         <aside class="nace-rail">
@@ -1437,17 +1421,57 @@
       });
     });
 
-    document.getElementById("submit-btn").addEventListener("click", generateQuickScore);
+    document.getElementById("submit-btn").addEventListener("click", function (e) {
+  e.preventDefault();
 
-    document.getElementById("checkout-link").addEventListener("click", function() {
-      const generated = sessionStorage.getItem("pqs_generated") === "true";
-      if (!generated) {
-        return;
-      }
+  const fullNameEl = document.getElementById("full_name");
+  const emailEl = document.getElementById("email");
+  const businessNameEl = document.getElementById("business_name");
 
-      text("nace-guidance", "Secure checkout initiated. Maintain session continuity.");
-      text("nace-state-line", "After payment completion, Stripe returns to the PQS output page so the saved signal can render.");
-    });
+  const fullName = clean(fullNameEl ? fullNameEl.value : "");
+  const email = clean(emailEl ? emailEl.value : "");
+  const businessName = clean(businessNameEl ? businessNameEl.value : "");
+
+  let firstInvalid = null;
+
+  [fullNameEl, emailEl, businessNameEl].forEach((field) => {
+    if (!field) return;
+
+    if (!clean(field.value)) {
+      field.style.borderColor = "rgba(161,74,74,0.85)";
+      if (!firstInvalid) firstInvalid = field;
+    } else {
+      field.style.borderColor = "";
+    }
+  });
+
+  if (!fullName || !email || !businessName) {
+    if (firstInvalid) firstInvalid.focus();
+    alert("Please complete Full Name, Email Address, and Business Name before continuing.");
+    return;
+  }
+
+  const pqsData = {
+    full_name: fullName,
+    email: email,
+    business_name: businessName,
+    entity_type: clean(document.getElementById("entity_type")?.value),
+    state_country: clean(document.getElementById("state_country")?.value),
+    revenue_band: clean(document.getElementById("revenue_band")?.value),
+    revenue_consistency: clean(document.getElementById("revenue_consistency")?.value),
+    offer_structure: clean(document.getElementById("offer_structure")?.value),
+    team_structure: clean(document.getElementById("team_structure")?.value),
+    operations_structure: clean(document.getElementById("operations_structure")?.value),
+    acquisition_channel: clean(document.getElementById("acquisition_channel")?.value),
+    primary_objective: clean(document.getElementById("primary_objective")?.value),
+    submitted_at: new Date().toISOString()
+  };
+
+  localStorage.setItem("pqs_intake", JSON.stringify(pqsData));
+
+  window.location.href = STRIPE_PQS_LINK;
+}); 
+   
   </script>
 </body>
 </html> 
