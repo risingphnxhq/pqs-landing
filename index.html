@@ -3,7 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Phoenix QuickScore | Rising Phoenix Enterprises</title>
+
+  <title>Phoenix Business System | Rising Phoenix Enterprises</title>
+
+  <!--
+    OPENAI/RPE_ID: OPENAI-RPE-PBS-MASTER-GATE-PQS-LAUNCH-V1
+    SUPER_COMMAND_ID: SCMD-PBS-MASTER-GATE-PQS-LAUNCH-APPROVED-001
+    ARTIFACT: pbs-master-gate.html
+    STATUS: APPROVED_BUILD
+    PURPOSE:
+    PBRS Shell Family Master Gate / Front Door for Phoenix Business System.
+    PQS is active and market-ready. PBRS, PBB, and PSEQ are controlled/restricted future layers.
+  -->
+
   <style>
     :root {
       --bg: #0b0f14;
@@ -15,6 +27,7 @@
       --faint: rgba(245,239,230,0.48);
       --gold: #d6b36a;
       --gold-soft: rgba(214,179,106,0.14);
+      --green: #74d6a3;
       --shadow: 0 28px 80px rgba(0,0,0,0.42);
       --radius: 24px;
     }
@@ -180,7 +193,7 @@
       line-height: 1.35;
     }
 
-    .action-card {
+    .entry-zone {
       margin-top: 28px;
       border: 1px solid rgba(214,179,106,0.18);
       background: rgba(214,179,106,0.06);
@@ -188,39 +201,131 @@
       padding: 24px;
     }
 
-    .action-title {
+    .entry-title {
       margin: 0 0 10px;
       font-size: 23px;
       letter-spacing: -0.02em;
     }
 
-    .action-copy {
+    .entry-copy {
       margin: 0 0 22px;
       color: var(--muted);
       font-size: 17px;
       line-height: 1.65;
     }
 
-    .cta {
+    .entry-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .entry-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.026);
+      padding: 20px;
+      min-height: 210px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .entry-card.active {
+      border-color: rgba(214,179,106,0.36);
+      background:
+        linear-gradient(180deg, rgba(214,179,106,0.10), rgba(255,255,255,0.026));
+    }
+
+    .entry-card.restricted {
+      opacity: 0.62;
+    }
+
+    .entry-kicker {
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .entry-name {
+      margin: 0 0 10px;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+    }
+
+    .entry-description {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.62;
+    }
+
+    .entry-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .node-state {
+      border: 1px solid rgba(214,179,106,0.22);
+      background: rgba(214,179,106,0.08);
+      border-radius: 999px;
+      padding: 8px 10px;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .node-state.live {
+      color: rgba(180,246,212,0.94);
+      border-color: rgba(116,214,163,0.26);
+      background: rgba(116,214,163,0.07);
+    }
+
+    .node-state.locked {
+      color: rgba(245,239,230,0.38);
+      border-color: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.026);
+    }
+
+    .entry-link,
+    .entry-disabled {
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      width: 100%;
-      min-height: 62px;
-      border-radius: 14px;
+      min-height: 44px;
+      border-radius: 12px;
+      padding: 0 14px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    .entry-link {
       border: 1px solid rgba(0,0,0,0.20);
       background: linear-gradient(180deg, #f0dfb2 0%, #d6b36a 100%);
       color: #17130d;
-      text-decoration: none;
-      font-size: 17px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
       transition: transform 0.16s ease, filter 0.16s ease;
     }
 
-    .cta:hover {
+    .entry-link:hover {
       transform: translateY(-1px);
       filter: brightness(1.03);
+    }
+
+    .entry-disabled {
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.025);
+      color: rgba(245,239,230,0.38);
+      cursor: not-allowed;
     }
 
     .rail-card {
@@ -245,7 +350,8 @@
       line-height: 1.68;
     }
 
-    .nace-list {
+    .nace-list,
+    .system-layer-list {
       margin: 18px 0 0;
       padding: 0;
       list-style: none;
@@ -253,12 +359,18 @@
       gap: 12px;
     }
 
-    .nace-list li {
+    .nace-list li,
+    .system-layer-list li {
       border-top: 1px solid var(--line);
       padding-top: 12px;
       color: var(--muted);
       font-size: 15px;
       line-height: 1.55;
+    }
+
+    .system-layer-list strong {
+      color: var(--text);
+      font-weight: 600;
     }
 
     .language-row {
@@ -294,6 +406,10 @@
       border-right: none;
     }
 
+    .flow-step.active {
+      background: rgba(214,179,106,0.045);
+    }
+
     .flow-number {
       color: var(--gold);
       font-size: 12px;
@@ -314,6 +430,15 @@
       color: var(--faint);
       font-size: 13px;
       line-height: 1.6;
+    }
+
+    .artifact-meta {
+      margin-top: 12px;
+      color: rgba(245,239,230,0.36);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      line-height: 1.7;
+      text-transform: uppercase;
     }
 
     @media (max-width: 900px) {
@@ -337,6 +462,7 @@
       }
 
       .system-strip,
+      .entry-grid,
       .flow-bar {
         grid-template-columns: 1fr;
       }
@@ -354,12 +480,24 @@
         width: 100%;
         text-align: center;
       }
+
+      .entry-meta {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .entry-link,
+      .entry-disabled {
+        width: 100%;
+      }
     }
   </style>
 </head>
+
 <body>
   <main class="page">
     <section class="access-shell">
+
       <header class="topbar">
         <div class="brand">
           <div class="seal">RP</div>
@@ -368,39 +506,113 @@
             <div class="brand-title">Phoenix Business System</div>
           </div>
         </div>
-        <div class="access-pill">Private QuickScore Entry</div>
+
+        <div class="access-pill">Private System Entry</div>
       </header>
 
       <section class="hero-grid">
         <div class="main-panel">
-          <p class="eyebrow">Phoenix QuickScore</p>
-          <h1>Know the condition before you move.</h1>
+          <p class="eyebrow">Phoenix Business System</p>
+
+          <h1>Operational clarity before capital, scale, or execution.</h1>
 
           <p class="subhead">
-            Phoenix QuickScore provides a rapid operational readiness signal for business owners who need clarity before committing time, capital, or execution energy.
+            The Phoenix Business System provides structured entry points for business owners who need clarity,
+            readiness signals, diagnostic review, correction pathways, or sequenced execution support.
           </p>
 
           <div class="system-strip">
             <div class="strip-card">
-              <div class="strip-label">System</div>
-              <div class="strip-value">PQS Quick Assessment</div>
+              <div class="strip-label">Active Launch Layer</div>
+              <div class="strip-value">Phoenix QuickScore</div>
             </div>
+
             <div class="strip-card">
-              <div class="strip-label">Output</div>
-              <div class="strip-value">Readiness Signal</div>
+              <div class="strip-label">System Type</div>
+              <div class="strip-value">Business Readiness Stack</div>
             </div>
+
             <div class="strip-card">
-              <div class="strip-label">Next Layer</div>
-              <div class="strip-value">PBRS or PBB Pathway</div>
+              <div class="strip-label">Access Model</div>
+              <div class="strip-value">PQS Live · Advanced Layers Controlled</div>
             </div>
           </div>
 
-          <div class="action-card">
-            <h2 class="action-title">Generate QuickScore</h2>
-            <p class="action-copy">
-              Complete the structured entry sequence to receive an initial Phoenix QuickScore signal. This is not a full diagnostic determination; it is an initial readiness reading used to determine the appropriate next system layer.
+          <div class="entry-zone">
+            <h2 class="entry-title">Select Your System Entry Point</h2>
+
+            <p class="entry-copy">
+              PQS is available now as the primary access layer. Additional Phoenix Business System layers are
+              structured for controlled release without changing this front door.
             </p>
-            <a class="cta" href="/pqs-intake.html">Generate QuickScore</a>
+
+            <div class="entry-grid">
+
+              <article class="entry-card active">
+                <div>
+                  <div class="entry-kicker">Primary Access Layer</div>
+                  <h3 class="entry-name">Phoenix QuickScore</h3>
+                  <p class="entry-description">
+                    A rapid operational readiness signal for business owners who need immediate clarity before
+                    committing time, capital, or execution energy.
+                  </p>
+                </div>
+
+                <div class="entry-meta">
+                  <span class="node-state live">Live</span>
+                  <a class="entry-link" href="/pqs.html">Enter PQS</a>
+                </div>
+              </article>
+
+              <article class="entry-card restricted">
+                <div>
+                  <div class="entry-kicker">Advanced Diagnostic Layer</div>
+                  <h3 class="entry-name">Phoenix Business Readiness Snapshot</h3>
+                  <p class="entry-description">
+                    A deeper operational diagnostic used to evaluate business structure, readiness posture,
+                    risk exposure, and preparation requirements.
+                  </p>
+                </div>
+
+                <div class="entry-meta">
+                  <span class="node-state locked">Controlled</span>
+                  <span class="entry-disabled">Restricted Access</span>
+                </div>
+              </article>
+
+              <article class="entry-card restricted">
+                <div>
+                  <div class="entry-kicker">Build & Correction Layer</div>
+                  <h3 class="entry-name">Phoenix Business Builder</h3>
+                  <p class="entry-description">
+                    A correction and structuring pathway for businesses that need operational reinforcement,
+                    system cleanup, and execution preparation.
+                  </p>
+                </div>
+
+                <div class="entry-meta">
+                  <span class="node-state locked">Controlled</span>
+                  <span class="entry-disabled">Restricted Access</span>
+                </div>
+              </article>
+
+              <article class="entry-card restricted">
+                <div>
+                  <div class="entry-kicker">Execution Pathway Layer</div>
+                  <h3 class="entry-name">Phoenix Sequence</h3>
+                  <p class="entry-description">
+                    A sequenced execution pathway for operators who require structured implementation,
+                    milestone tracking, and guided progression.
+                  </p>
+                </div>
+
+                <div class="entry-meta">
+                  <span class="node-state locked">Controlled</span>
+                  <span class="entry-disabled">Restricted Access</span>
+                </div>
+              </article>
+
+            </div>
           </div>
         </div>
 
@@ -408,19 +620,37 @@
           <div class="rail-card">
             <h2 class="rail-title">NACE Interface</h2>
             <p class="rail-copy">
-              This entry is guided through the institutional interface layer. The process is structured, sequenced, and designed to reduce ambiguity before deeper evaluation.
+              This entry surface is structured through the Phoenix Business System interface layer. It introduces
+              the active launch product while preserving controlled expansion into deeper system pathways.
             </p>
+
             <ul class="nace-list">
-              <li>Complete the initial entry with accurate business information.</li>
-              <li>Receive an initial readiness signal based on operational posture.</li>
-              <li>Proceed into the appropriate PBS pathway when directed.</li>
+              <li>PQS is complete as a standalone market-ready signal system.</li>
+              <li>Advanced pathways are visible as controlled system depth, not unfinished products.</li>
+              <li>Future layers can be activated without rebuilding this front door.</li>
             </ul>
           </div>
 
           <div class="rail-card">
-            <h2 class="rail-title">What QuickScore Determines</h2>
+            <h2 class="rail-title">System Layer Logic</h2>
             <p class="rail-copy">
-              PQS identifies whether the business should remain in quick review, advance into full PBRS evaluation, or move directly toward the PBB correction pathway.
+              Phoenix Business System is structured by depth of need. Operators can enter at the appropriate layer
+              without requiring every system to be live at launch.
+            </p>
+
+            <ul class="system-layer-list">
+              <li><strong>Signal:</strong> Quick readiness reading</li>
+              <li><strong>Diagnostic:</strong> Deeper operational evaluation</li>
+              <li><strong>Build:</strong> Correction and structuring pathway</li>
+              <li><strong>Execute:</strong> Sequenced implementation path</li>
+            </ul>
+          </div>
+
+          <div class="rail-card">
+            <h2 class="rail-title">Commercial Launch Status</h2>
+            <p class="rail-copy">
+              PQS is the active front-door product for immediate market deployment. It is presented as complete on
+              its own and powerful when connected to the broader Phoenix Business System.
             </p>
           </div>
 
@@ -429,6 +659,7 @@
             <p class="rail-copy">
               Multi-language interface support is planned for global operator access. Current release is English-first.
             </p>
+
             <div class="language-row">
               <button>English</button>
               <button>Español</button>
@@ -442,27 +673,38 @@
       </section>
 
       <section class="flow-bar">
-        <div class="flow-step">
-          <div class="flow-number">Step 01</div>
-          <div class="flow-label">Enter Business Snapshot</div>
+        <div class="flow-step active">
+          <div class="flow-number">Layer 01</div>
+          <div class="flow-label">Signal</div>
         </div>
+
         <div class="flow-step">
-          <div class="flow-number">Step 02</div>
-          <div class="flow-label">Generate QuickScore Signal</div>
+          <div class="flow-number">Layer 02</div>
+          <div class="flow-label">Diagnostic</div>
         </div>
+
         <div class="flow-step">
-          <div class="flow-number">Step 03</div>
-          <div class="flow-label">Review Readiness Posture</div>
+          <div class="flow-number">Layer 03</div>
+          <div class="flow-label">Build</div>
         </div>
+
         <div class="flow-step">
-          <div class="flow-number">Step 04</div>
-          <div class="flow-label">Proceed to PBRS or PBB</div>
+          <div class="flow-number">Layer 04</div>
+          <div class="flow-label">Execute</div>
         </div>
       </section>
 
       <footer class="legal">
-        Phoenix QuickScore is an initial readiness signal within the Phoenix Business System. It does not replace full operational review, funding qualification, legal advice, tax advice, or financial underwriting.
+        Phoenix Business System provides structured business readiness signals, diagnostic pathways, correction
+        pathways, and execution sequencing. Phoenix QuickScore is an initial readiness signal and does not replace
+        legal advice, tax advice, financial underwriting, funding qualification, or full operational review.
+
+        <div class="artifact-meta">
+          OPENAI/RPE_ID: OPENAI-RPE-PBS-MASTER-GATE-PQS-LAUNCH-V1<br />
+          SUPER_COMMAND_ID: SCMD-PBS-MASTER-GATE-PQS-LAUNCH-APPROVED-001
+        </div>
       </footer>
+
     </section>
   </main>
 </body>
