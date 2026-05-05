@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>  
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -315,10 +315,12 @@
     .entry-link{
       color:var(--text);
       margin-left:auto; 
+      border-width:1.5px;
+      letter-spacing:0.14em;
       border-color:var(--gold);
       background:rgba(255,255,255,0.01);
       box-shadow:0 0 10px rgba(201,162,39,0.15);
-      transition:background-color .18s ease, color .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+      transition:background-color .18s ease, color .18s ease, border-color .18s ease;
     }
 
     .entry-link:hover{
@@ -337,12 +339,9 @@
     }
 
     .nace-rail{
-      background:var(--bg-soft);
-      border:1px solid var(--line);
-      min-height:500px;
-      padding:20px 18px;
-      position:relative;
-    }
+  background: rgba(10,14,20,0.55);
+  border: 1px solid rgba(201,162,39,0.18);
+} 
 
     .nace-rail::before{
       content:"";
@@ -439,25 +438,42 @@
       flex-wrap:wrap;
       font-family:"Cinzel", serif;
       font-size:14px;
-      letter-spacing:0.08em;
+      letter-spacing:0.18em;
       text-transform:uppercase;
-      color:#8d949d;
+      color:rgba(255,255,255,0.75);
     }
 
     .stack-flow .active{
       color:var(--gold);
-    }
+    .arrow{
+  opacity:0.55;
+  margin:0 6px;
+  font-size:13px;
+  transition:all .2s ease;
+}
 
-    .stack-flow .restricted{
-      color:#5d646e;
-    }
+.stack-flow .active{
+  color:var(--gold);
+  text-shadow:0 0 10px rgba(201,162,39,0.35);
+  animation:flowPulse 2.8s ease-in-out infinite;
+}
 
-    .stack-flow .arrow{
-      color:#525964;
-      font-family:"Inter", Arial, sans-serif;
-      font-size:15px;
-      letter-spacing:normal;
-    }
+.stack-flow .restricted{
+  color:rgba(255,255,255,0.35);
+}
+
+.stack-flow .restricted + .arrow{
+  opacity:0.35;
+}
+
+@keyframes flowPulse{
+  0%,100%{
+    text-shadow:0 0 8px rgba(201,162,39,0.25);
+  }
+  50%{
+    text-shadow:0 0 16px rgba(201,162,39,0.45);
+  }
+} 
 
     .footer{
       text-align:center;
@@ -565,10 +581,7 @@
       .stack-label{
         font-size:10px;
       }
-
-      .stack-flow{
-        font-size:12px;
-        gap:8px;
+     
       }
     }
   </style>
@@ -582,7 +595,7 @@
       <div class="system-kicker">Phoenix Business System</div>
     </div>
 
-    <div class="shell">
+    <div class="shell"> 
       <section class="hero">
         <h1 class="headline">Phoenix Business System</h1>
 
@@ -605,7 +618,7 @@
           </p>
 
           <div class="entry-grid">
-            <article class="entry-card active">
+            <article class="entry-card active primary">
               <div>
                 <div class="entry-status">Primary Access Layer</div>
                 <h3 class="entry-name">Phoenix QuickScore</h3>
