@@ -3,244 +3,467 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Phoenix QuickScore — Intake</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
+  <title>Phoenix QuickScore | Rising Phoenix Enterprises</title>
   <style>
-    :root{
-      --bg:#050505;
-      --bg-soft:#0b0b0c;
-      --panel:#0d0f13;
-      --panel-2:#11141a;
-      --text:#f3f4f6;
-      --muted:#a8afb8;
-      --muted-2:#7f8791;
-      --gold:#c9a227;
-      --line:#232831;
-      --line-2:#1b1f26;
-      --blue-glow:rgba(49,95,188,0.16);
-
-      --green-soft: rgba(57,140,89,0.16);
-      --green-border: rgba(57,140,89,0.30);
-
-      --amber-soft: rgba(184,134,11,0.16);
-      --amber-border: rgba(184,134,11,0.30);
-
-      --red-soft: rgba(170,72,72,0.16);
-      --red-border: rgba(170,72,72,0.30);
-
-      --blue-soft: rgba(68,115,255,0.16);
-      --blue-border: rgba(68,115,255,0.24);
-
-      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+    :root {
+      --bg: #0b0f14;
+      --panel: rgba(255,255,255,0.035);
+      --panel-2: rgba(255,255,255,0.055);
+      --line: rgba(255,255,255,0.08);
+      --text: #f5efe6;
+      --muted: rgba(245,239,230,0.72);
+      --faint: rgba(245,239,230,0.48);
+      --gold: #d6b36a;
+      --gold-soft: rgba(214,179,106,0.14);
+      --shadow: 0 28px 80px rgba(0,0,0,0.42);
+      --radius: 24px;
     }
 
-    *{box-sizing:border-box;margin:0;padding:0;}
-
-    html, body{
-      width:100%;
-      min-height:100%;
-      background:var(--bg);
-      color:var(--text);
-      font-family:"Inter", Arial, sans-serif;
+    * {
+      box-sizing: border-box;
     }
 
-    body{
+    body {
+      margin: 0;
+      min-height: 100vh;
       background:
-        radial-gradient(circle at 50% 18%, rgba(201,162,39,0.08) 0%, rgba(201,162,39,0.02) 18%, rgba(0,0,0,0) 44%),
-        radial-gradient(circle at 50% 58%, var(--blue-glow) 0%, rgba(49,95,188,0.05) 24%, rgba(0,0,0,0) 58%),
-        linear-gradient(180deg, #090909 0%, #060606 100%);
+        radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(68,115,255,0.09), transparent 26%),
+        linear-gradient(180deg, #0a0e13 0%, #0b0f14 100%);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
     }
 
-    .page{
-      position:relative;
-      min-height:100vh;
-      overflow:hidden;
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 32px auto 56px;
+    }
+
+    .access-shell {
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.018));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 22px 28px;
+      border-bottom: 1px solid var(--line);
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .seal {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(214,179,106,0.38);
       background:
-        linear-gradient(90deg, rgba(255,255,255,0.015) 0, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 100%),
-        linear-gradient(180deg, rgba(255,255,255,0.015) 0, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 100%);
-      background-size:120px 120px;
+        radial-gradient(circle at center, rgba(214,179,106,0.2), transparent 58%),
+        rgba(255,255,255,0.025);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 18px;
+      letter-spacing: -0.06em;
+      font-weight: 700;
     }
 
-    .seal{
-      position:absolute;
-      top:30px;
-      left:36px;
-      width:112px;
-      opacity:0.96;
+    .brand-text {
+      line-height: 1.1;
     }
 
-    .system-label{
-      position:absolute;
-      top:42px;
-      left:50%;
-      transform:translateX(-50%);
-      text-align:center;
+    .brand-kicker {
+      color: var(--faint);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
     }
 
-    .system-kicker{
-      font-family:"Cinzel", serif;
-      font-size:13px;
-      letter-spacing:0.26em;
-      text-transform:uppercase;
-      color:#cfd4da;
+    .brand-title {
+      color: var(--text);
+      font-size: 17px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
 
-    .shell{
-      width:min(1380px, 94vw);
-      margin:0 auto;
-      padding:120px 0 40px;
+    .access-pill {
+      border: 1px solid rgba(214,179,106,0.22);
+      background: rgba(214,179,106,0.08);
+      border-radius: 999px;
+      padding: 11px 16px;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
-    .hero{text-align:center;margin-bottom:34px;}
-
-    .headline{
-      font-family:"Cinzel", serif;
-      font-size:clamp(26px, 2.6vw, 44px);
-      text-transform:uppercase;
-      margin-bottom:18px;
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      min-height: 650px;
     }
 
-    .subline{
-      font-size:clamp(16px, 1.15vw, 20px);
-      color:var(--muted);
-      max-width:860px;
-      margin:0 auto;
+    .main-panel {
+      padding: 58px 42px 42px;
+      border-right: 1px solid var(--line);
     }
 
-    .workspace{
-      display:grid;
-      grid-template-columns:minmax(0, 1fr) 320px;
-      gap:28px;
+    .right-rail {
+      padding: 42px 34px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.028), rgba(255,255,255,0.012)),
+        rgba(255,255,255,0.015);
     }
 
-    .main-panel{
-      background:rgba(255,255,255,0.02);
-      border:1px solid var(--line);
-      padding:28px;
-      box-shadow:var(--shadow);
+    .eyebrow {
+      margin: 0 0 16px;
+      color: var(--gold);
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
     }
 
-    .section{
-      border:1px solid var(--line);
-      background:rgba(255,255,255,0.02);
-      padding:22px;
-      margin-bottom:18px;
+    h1 {
+      margin: 0;
+      font-size: clamp(3rem, 7vw, 5.8rem);
+      line-height: 0.92;
+      letter-spacing: -0.06em;
+      font-weight: 600;
     }
 
-    input, select, textarea{
-      width:100%;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,0.03);
-      color:var(--text);
-      border-radius:12px;
-      padding:14px;
+    .subhead {
+      margin: 24px 0 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 21px;
+      line-height: 1.62;
     }
 
-    /* 🔥 HIGH IMPACT CSS ADDITIONS */
-
-    .cta{
-      border:1px solid var(--gold);
-      padding:16px;
-      text-transform:uppercase;
-      font-family:"Cinzel", serif;
-      cursor:pointer;
-      transition: all .2s ease;
+    .system-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 34px 0;
     }
 
-    .cta:hover{
-      background:var(--gold);
-      color:#111;
+    .strip-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.026);
+      padding: 18px;
     }
 
-    .cta:active{
-      transform:scale(0.97);
+    .strip-label {
+      color: var(--faint);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
     }
 
-    .cta.loading{
-      opacity:0.7;
-      pointer-events:none;
+    .strip-value {
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.35;
     }
 
-    .score-number{
-      font-family:"Cinzel", serif;
-      font-size:60px;
-      transition: all .4s ease;
+    .action-card {
+      margin-top: 28px;
+      border: 1px solid rgba(214,179,106,0.18);
+      background: rgba(214,179,106,0.06);
+      border-radius: 22px;
+      padding: 24px;
     }
 
-    .score-number.active{
-      transform:scale(1.08);
-      text-shadow:0 0 20px rgba(201,162,39,0.3);
+    .action-title {
+      margin: 0 0 10px;
+      font-size: 23px;
+      letter-spacing: -0.02em;
     }
 
-    .pill, .band-pill{
-      transition: all .25s ease;
+    .action-copy {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.65;
     }
 
-    .pill.updated, .band-pill.updated{
-      box-shadow:0 0 14px rgba(201,162,39,0.25);
+    .cta {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 62px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,0.20);
+      background: linear-gradient(180deg, #f0dfb2 0%, #d6b36a 100%);
+      color: #17130d;
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      transition: transform 0.16s ease, filter 0.16s ease;
     }
 
-    .cta-note{
-      transition: opacity .3s ease;
+    .cta:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
     }
 
+    .rail-card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.028);
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .rail-title {
+      margin: 0 0 12px;
+      color: var(--text);
+      font-size: 21px;
+      letter-spacing: -0.02em;
+    }
+
+    .rail-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.68;
+    }
+
+    .nace-list {
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .nace-list li {
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .language-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .language-row button {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      cursor: default;
+    }
+
+    .flow-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--line);
+      background: rgba(255,255,255,0.018);
+    }
+
+    .flow-step {
+      padding: 18px 22px;
+      border-right: 1px solid var(--line);
+    }
+
+    .flow-step:last-child {
+      border-right: none;
+    }
+
+    .flow-number {
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .flow-label {
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .legal {
+      padding: 18px 28px 24px;
+      border-top: 1px solid var(--line);
+      color: var(--faint);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        width: min(100% - 18px, 1180px);
+        margin: 18px auto 34px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .main-panel {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+        padding: 40px 22px 26px;
+      }
+
+      .right-rail {
+        padding: 24px 22px;
+      }
+
+      .system-strip,
+      .flow-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-step {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .flow-step:last-child {
+        border-bottom: none;
+      }
+
+      .access-pill {
+        width: 100%;
+        text-align: center;
+      }
+    }
   </style>
 </head>
-
 <body>
+  <main class="page">
+    <section class="access-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="seal">RP</div>
+          <div class="brand-text">
+            <div class="brand-kicker">Rising Phoenix Enterprises</div>
+            <div class="brand-title">Phoenix Business System</div>
+          </div>
+        </div>
+        <div class="access-pill">Private QuickScore Entry</div>
+      </header>
 
-<button id="submit-btn" class="cta">Generate QuickScore →</button>
+      <section class="hero-grid">
+        <div class="main-panel">
+          <p class="eyebrow">Phoenix QuickScore</p>
+          <h1>Know the condition before you move.</h1>
 
-<div id="pqs-score" class="score-number">--</div>
+          <p class="subhead">
+            Phoenix QuickScore provides a rapid operational readiness signal for business owners who need clarity before committing time, capital, or execution energy.
+          </p>
 
-<script>
-async function generateQuickScoreAndContinue(){
+          <div class="system-strip">
+            <div class="strip-card">
+              <div class="strip-label">System</div>
+              <div class="strip-value">PQS Quick Assessment</div>
+            </div>
+            <div class="strip-card">
+              <div class="strip-label">Output</div>
+              <div class="strip-value">Readiness Signal</div>
+            </div>
+            <div class="strip-card">
+              <div class="strip-label">Next Layer</div>
+              <div class="strip-value">PBRS or PBB Pathway</div>
+            </div>
+          </div>
 
-  const btn = document.getElementById("submit-btn");
-  btn.classList.add("loading");
-  btn.innerText = "Generating...";
+          <div class="action-card">
+            <h2 class="action-title">Generate QuickScore</h2>
+            <p class="action-copy">
+              Complete the structured entry sequence to receive an initial Phoenix QuickScore signal. This is not a full diagnostic determination; it is an initial readiness reading used to determine the appropriate next system layer.
+            </p>
+            <a class="cta" href="/pqs-intake.html">Generate QuickScore</a>
+          </div>
+        </div>
 
-  try{
+        <aside class="right-rail">
+          <div class="rail-card">
+            <h2 class="rail-title">NACE Interface</h2>
+            <p class="rail-copy">
+              This entry is guided through the institutional interface layer. The process is structured, sequenced, and designed to reduce ambiguity before deeper evaluation.
+            </p>
+            <ul class="nace-list">
+              <li>Complete the initial entry with accurate business information.</li>
+              <li>Receive an initial readiness signal based on operational posture.</li>
+              <li>Proceed into the appropriate PBS pathway when directed.</li>
+            </ul>
+          </div>
 
-    const res = await fetch("https://phoenix-pqs-gateway.tsteelefpa.workers.dev/",{
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify({
-        email:"test@test.com",
-        revenue_band:"100k+",
-        revenue_consistency:"consistent",
-        operations_structure:"structured",
-        team_structure:"team",
-        offer_structure:"clear",
-        acquisition_channel:"predictable"
-      })
-    });
+          <div class="rail-card">
+            <h2 class="rail-title">What QuickScore Determines</h2>
+            <p class="rail-copy">
+              PQS identifies whether the business should remain in quick review, advance into full PBRS evaluation, or move directly toward the PBB correction pathway.
+            </p>
+          </div>
 
-    const data = await res.json();
+          <div class="rail-card">
+            <h2 class="rail-title">Language Access</h2>
+            <p class="rail-copy">
+              Multi-language interface support is planned for global operator access. Current release is English-first.
+            </p>
+            <div class="language-row">
+              <button>English</button>
+              <button>Español</button>
+              <button>Français</button>
+              <button>Deutsch</button>
+              <button>العربية</button>
+              <button>中文</button>
+            </div>
+          </div>
+        </aside>
+      </section>
 
-    const scoreEl = document.getElementById("pqs-score");
+      <section class="flow-bar">
+        <div class="flow-step">
+          <div class="flow-number">Step 01</div>
+          <div class="flow-label">Enter Business Snapshot</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">Step 02</div>
+          <div class="flow-label">Generate QuickScore Signal</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">Step 03</div>
+          <div class="flow-label">Review Readiness Posture</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">Step 04</div>
+          <div class="flow-label">Proceed to PBRS or PBB</div>
+        </div>
+      </section>
 
-    scoreEl.innerText = data.score;
-    scoreEl.classList.add("active");
-
-    setTimeout(()=>{
-      window.location.href="https://buy.stripe.com/eVq7sL7Uc2Mcdeu189fYY0d";
-    },1200);
-
-  }catch(e){
-    alert("Error. Try again.");
-  }
-
-  btn.classList.remove("loading");
-  btn.innerText="Generate QuickScore →";
-}
-
-document.getElementById("submit-btn").addEventListener("click", generateQuickScoreAndContinue);
-</script>
-
+      <footer class="legal">
+        Phoenix QuickScore is an initial readiness signal within the Phoenix Business System. It does not replace full operational review, funding qualification, legal advice, tax advice, or financial underwriting.
+      </footer>
+    </section>
+  </main>
 </body>
 </html> 
