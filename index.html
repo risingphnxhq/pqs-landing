@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -9,9 +9,9 @@
   <!--
     OPENAI/RPE_ID: OPENAI-RPE-PBS-MASTER-GATE-PQS-LAUNCH-V1
     SUPER_COMMAND_ID: SCMD-PBS-MASTER-GATE-PQS-LAUNCH-APPROVED-001
-    ARTIFACT: pbs-master-gate.html
+    ARTIFACT: index.html
     STATUS: APPROVED_BUILD
-    REVISION: R2-COMPRESSION-PASS
+    REVISION: PBRS-SOURCE-OF-TRUTH-SHELL + APPROVED MICRO-FINISHES ONLY
   -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,18 +76,15 @@
 
     .seal{
       position:absolute;
-      top:30px;
-      left:36px;
-      width:112px;
+      top:34px;
+      left:46px;
+      width:138px;
       height:auto;
-      opacity:0.96;
-      filter:drop-shadow(0 0 14px rgba(201,162,39,0.08));
+      opacity:0.98;
+      filter:
+        drop-shadow(0 0 14px rgba(201,162,39,0.16))
+        drop-shadow(0 0 28px rgba(49,95,188,0.10));
       z-index:4;
-    }
-
-    .seal[src=""],
-    .seal:not([src]){
-      display:none;
     }
 
     .system-label{
@@ -203,7 +200,7 @@
       line-height:1.52;
       color:var(--muted);
       margin-bottom:20px;
-      max-width:780px;
+      max-width:640px;
     }
 
     .entry-grid{
@@ -221,17 +218,29 @@
       flex-direction:column;
       justify-content:space-between;
       position:relative;
+      transition:
+        transform .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease,
+        background-color .18s ease;
+    }
+
+    .entry-card:hover{
+      transform:translateY(-2px);
+      border-color:rgba(201,162,39,0.35);
     }
 
     .entry-card.active{
-      border-color:rgba(201,162,39,0.62);
+      border:1px solid rgba(201,162,39,0.85);
       background:
-        linear-gradient(180deg, rgba(201,162,39,0.085) 0%, rgba(255,255,255,0.015) 100%),
+        linear-gradient(180deg, rgba(201,162,39,0.095) 0%, rgba(255,255,255,0.015) 100%),
         var(--panel);
+      box-shadow:0 0 18px rgba(201,162,39,0.12);
     }
 
     .entry-card.restricted{
-      opacity:0.56;
+      opacity:0.48;
+      filter:grayscale(10%);
     }
 
     .entry-status{
@@ -290,7 +299,7 @@
       align-items:center;
       justify-content:center;
       min-width:120px;
-      padding:10px 12px;
+      padding:10px 16px;
       border:1px solid var(--line);
       text-decoration:none;
       text-transform:uppercase;
@@ -304,7 +313,8 @@
       color:var(--text);
       border-color:var(--gold);
       background:rgba(255,255,255,0.01);
-      transition:background-color .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
+      box-shadow:0 0 10px rgba(201,162,39,0.15);
+      transition:background-color .18s ease, color .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
     }
 
     .entry-link:hover{
@@ -312,6 +322,7 @@
       color:#111;
       border-color:var(--gold);
       transform:translateY(-1px);
+      box-shadow:0 0 16px rgba(201,162,39,0.24);
     }
 
     .entry-disabled{
@@ -362,7 +373,7 @@
 
     .nace-copy{
       font-size:14px;
-      line-height:1.55;
+      line-height:1.45;
       color:#e8e8ea;
     }
 
@@ -482,7 +493,7 @@
       .seal{
         top:22px;
         left:20px;
-        width:84px;
+        width:94px;
       }
 
       .system-label{
