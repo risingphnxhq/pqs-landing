@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>  
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -230,13 +230,16 @@
       border-color:rgba(201,162,39,0.35);
     }
 
-    .entry-card.active{
-      border:1px solid rgba(201,162,39,0.85);
-      background:
-        linear-gradient(180deg, rgba(201,162,39,0.095) 0%, rgba(255,255,255,0.015) 100%),
-        var(--panel);
-      box-shadow:0 0 18px rgba(201,162,39,0.12);
-    }
+   .entry-card.active{
+  border:1px solid rgba(201,162,39,0.95);
+  background:
+    radial-gradient(circle at 18% 12%, rgba(201,162,39,0.16), transparent 60%),
+    linear-gradient(180deg, rgba(201,162,39,0.10) 0%, rgba(255,255,255,0.015) 100%),
+    var(--panel);
+  box-shadow:
+    0 0 26px rgba(201,162,39,0.22),
+    inset 0 0 18px rgba(201,162,39,0.05);
+} 
 
     .entry-card.restricted{
       opacity:0.48;
@@ -311,6 +314,7 @@
 
     .entry-link{
       color:var(--text);
+      margin-left:auto; 
       border-color:var(--gold);
       background:rgba(255,255,255,0.01);
       box-shadow:0 0 10px rgba(201,162,39,0.15);
