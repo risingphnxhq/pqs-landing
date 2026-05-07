@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -712,7 +712,21 @@
 
       if (objective.length > 20) score += 8;
 
-      if (score > 100) score = 100;
+     let maxScore = 100;
+
+if (revenue === "Pre-Revenue") {
+  maxScore = 76;
+} else if (revenue === "Under $100K") {
+  maxScore = 82;
+} else if (revenue === "$100K–$500K") {
+  maxScore = 88;
+} else if (revenue === "$500K–$1M") {
+  maxScore = 94;
+} else if (revenue === "$1M+") {
+  maxScore = 100;
+}
+
+if (score > maxScore) score = maxScore; 
 
       let stateLabel = "Conditional";
       let badgeClass = "pill pill-amber";
