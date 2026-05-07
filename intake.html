@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>  
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -588,32 +588,45 @@
     </div>
   </main>
 
-  <script>
-    const form = document.getElementById("pqsIntakeForm");
-    const errorBox = document.getElementById("formError");
-    const naceCopy = document.getElementById("naceCopy");
+ <script>
+  const form = document.getElementById("pqsIntakeForm");
+  const errorBox = document.getElementById("formError");
+  const naceCopy = document.getElementById("naceCopy");
 
-    form.addEventListener("submit", function(event){
-      event.preventDefault();
+  form.addEventListener("submit", function(event){
+    event.preventDefault();
 
-      if (!form.checkValidity()) {
-        errorBox.classList.add("show");
-        form.reportValidity();
-        return;
-      }
+    if (!form.checkValidity()) {
+      errorBox.classList.add("show");
+      form.reportValidity();
+      return;
+    }
 
-      errorBox.classList.remove("show");
+    errorBox.classList.remove("show");
 
-      naceCopy.innerHTML = `
-        Intake accepted.<br><br>
-        Generating QuickScore readiness signal.<br><br>
-        Maintain session.
-      `;
+    const intakeData = {
+      legal_name: document.getElementById("legal_name").value.trim(),
+      entity_type: document.getElementById("entity_type").value.trim(),
+      state_country: document.getElementById("state_country").value.trim(),
+      revenue_band: document.getElementById("revenue_band").value.trim(),
+      reporting_cadence: document.getElementById("reporting_cadence").value.trim(),
+      ops_structure_flag: document.getElementById("ops_structure_flag").value.trim(),
+      primary_goal: document.getElementById("primary_goal").value.trim(),
+      submitted_at: new Date().toISOString()
+    };
 
-      setTimeout(() => {
-        window.location.href = "/output.html";
-      }, 650);
-    });
-  </script>
+    localStorage.setItem("pqs_intake", JSON.stringify(intakeData));
+
+    naceCopy.innerHTML = `
+      Intake accepted.<br><br>
+      Generating QuickScore readiness signal.<br><br>
+      Maintain session.
+    `;
+
+    setTimeout(() => {
+      window.location.href = "/output.html";
+    }, 650);
+  });
+</script> 
 </body>
 </html> 
